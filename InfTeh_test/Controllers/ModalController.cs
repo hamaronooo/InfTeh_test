@@ -8,10 +8,9 @@ namespace InfTeh_test.Controllers
 {
     public class ModalController : Controller
     {
-        // GET: Modal
-        public ActionResult Index()
+        public ActionResult GetModal()
         {
-            return View();
+            return PartialView("_PartialModal");
         }
     }
 }
