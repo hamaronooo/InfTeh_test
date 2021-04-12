@@ -13,8 +13,8 @@ namespace InfTeh_test.Controllers
 
         public ActionResult Index()
         {
-            var folder = dc.Folders.First();
-            return View(folder);
+            //return RedirectToAction("GetChildren", "Navigation");
+            return PartialView();
         }
     }
 }

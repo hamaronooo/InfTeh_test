@@ -1,12 +1,22 @@
-﻿
+﻿<style>
+    ul {
+        list-style-type: none !important;
+    }
+</style>
 <script>
     $(document).ready(function () {
-        OpenCookieUl();
+        showPreloader();
+        //OpenCookieUl();
         $('ul li a').click(function (e) {
             var parent = this.closest('ul');
             SaveState(parent.id);
         });
+        $('#navAccordion').load('@Url.Action("GetChildren","Navigation")', function() {
+            hidePreloader();
+        });
+
     });
+
 </script>
 
 <a class="navbar-brand" href="#">Explorer</a>
@@ -22,7 +32,7 @@
 
 <div class="collapse navbar-collapse" id="navbarCollapse">
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: #343a40;">
-        <a class="navbar-brand" href="#">>Explorer</a>
+        <a class="navbar-brand" href="#">Explorer</a>
         <button class="navbar-toggler"
                 type="button"
                 data-toggle="collapse"
@@ -34,35 +44,7 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav mr-auto sidenav" id="navAccordion">
-                <li class="nav-item">
-                    @Html.ActionLink("✨ Главная", "Index"
-                        , new { Controller = "Home", Area = "" }
-                        , new { @class = "nav-link" })
-                </li>
-          
-                <li class="nav-item">
-                    <a class="nav-link nav-link-collapse"
-                       href="#"
-                       id="PlacesSubItems"
-                       data-toggle="collapse"
-                       data-target="#collapsePlaces"
-                       aria-controls="collapsePlaces"
-                       aria-expanded="false">📌 Локации</a>
-                    <ul class="nav-second-level collapse" id="collapsePlaces" data-parent="#navAccordion">
-                        <li class="nav-item">
-                            @Html.ActionLink("📋 Все локации", "Index"
-                                , new { Controller = "Places", Area = "" }
-                                , new { @class = "nav-link" })
-                        </li>
-                        <li class="nav-item">
-                            @Html.ActionLink("🏘 Типы локаций", "Index"
-                                , new { Controller = "PlaceTypes", Area = "" }
-                                , new { @class = "nav-link" })
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+            <ul class="navbar-nav mr-auto sidenav" id="navAccordion"></ul>
         </div>
     </nav>
 </div>

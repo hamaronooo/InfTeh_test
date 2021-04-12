@@ -11,7 +11,7 @@ namespace InfTeh_test.Models.DataContext
     {
         [Key]
         [HiddenInput(DisplayValue = false)]
-        public int folderid { get; set; }
+        public int folderid { get; set; } = 0;
 
         [Required(ErrorMessage = "Обязательно укажите название!")]
         [StringLength(100, MinimumLength = 3,

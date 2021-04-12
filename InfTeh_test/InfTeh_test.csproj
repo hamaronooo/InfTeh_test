@@ -152,6 +152,47 @@
     <Content Include="Content\css\global.css" />
     <Content Include="Content\css\select2.css" />
     <Content Include="Content\css\select2.min.css" />
+    <Content Include="Content\FileIcons\after-effects.svg" />
+    <Content Include="Content\FileIcons\ai.svg" />
+    <Content Include="Content\FileIcons\audition.svg" />
+    <Content Include="Content\FileIcons\avi.svg" />
+    <Content Include="Content\FileIcons\bridge.svg" />
+    <Content Include="Content\FileIcons\css.svg" />
+    <Content Include="Content\FileIcons\csv.svg" />
+    <Content Include="Content\FileIcons\dbf.svg" />
+    <Content Include="Content\FileIcons\doc.svg" />
+    <Content Include="Content\FileIcons\dreamweaver.svg" />
+    <Content Include="Content\FileIcons\dwg.svg" />
+    <Content Include="Content\FileIcons\exe.svg" />
+    <Content Include="Content\FileIcons\file.svg" />
+    <Content Include="Content\FileIcons\fireworks.svg" />
+    <Content Include="Content\FileIcons\fla.svg" />
+    <Content Include="Content\FileIcons\flash.svg" />
+    <Content Include="Content\FileIcons\html.svg" />
+    <Content Include="Content\FileIcons\illustrator.svg" />
+    <Content Include="Content\FileIcons\indesign.svg" />
+    <Content Include="Content\FileIcons\iso.svg" />
+    <Content Include="Content\FileIcons\javascript.svg" />
+    <Content Include="Content\FileIcons\jpg.svg" />
+    <Content Include="Content\FileIcons\json-file.svg" />
+    <Content Include="Content\FileIcons\mp3.svg" />
+    <Content Include="Content\FileIcons\mp4.svg" />
+    <Content Include="Content\FileIcons\pdf.svg" />
+    <Content Include="Content\FileIcons\photoshop.svg" />
+    <Content Include="Content\FileIcons\png.svg" />
+    <Content Include="Content\FileIcons\ppt.svg" />
+    <Content Include="Content\FileIcons\prelude.svg" />
+    <Content Include="Content\FileIcons\premiere.svg" />
+    <Content Include="Content\FileIcons\psd.svg" />
+    <Content Include="Content\FileIcons\rtf.svg" />
+    <Content Include="Content\FileIcons\search.svg" />
+    <Content Include="Content\FileIcons\svg.svg" />
+    <Content Include="Content\FileIcons\txt.svg" />
+    <Content Include="Content\FileIcons\xls.svg" />
+    <Content Include="Content\FileIcons\xml.svg" />
+    <Content Include="Content\FileIcons\zip-1.svg" />
+    <Content Include="Content\FileIcons\zip.svg" />
+    <Content Include="Content\svg\folder.svg" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -193,7 +234,6 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
-    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -369,6 +409,7 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Content\ico\siteicon.ico" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -397,11 +438,11 @@
     <Content Include="Views\Toast\Partial_Toast.cshtml" />
     <Content Include="Views\Toast\Partial_ToastContainer.cshtml" />
     <Content Include="Views\Toast\Partial_ToastValidation.cshtml" />
+    <Content Include="Views\Navigation\NavigationBlock.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Modal\" />
-    <Folder Include="Views\Navigation\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

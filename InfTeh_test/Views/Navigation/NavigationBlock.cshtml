@@ -1,0 +1,48 @@
+﻿@model InfTeh_test.Models.NavigationModel
+@if (Model.Files.Any() || Model.Folders.Any())
+{
+    <script>
+        $(document).ready(function () {
+            $('ul li a').off('click').on('click', function (e) {
+                loadChildrens(this);
+            });
+        });
+        function loadChildrens(a) {
+            var folderid = a.getAttribute('data-file-id');
+         //   if ($('#collapse_' + folderid).is(':empty')) {
+                $('#collapse_' + folderid).load('@Url.Action("GetChildren","Navigation")?parentFolderid=' + folderid, function () {
+                });
+          //}
+        }
+    </script>
+}
+@foreach (var folder in Model.Folders)
+{
+    <li class="nav-item">
+        <a class="nav-link nav-link-collapse"
+           href="#"
+           id="SubItems_@folder.folderid"
+           data-file-id="@folder.folderid"
+           data-toggle="collapse"
+           data-target="#collapse_@folder.folderid"
+           aria-controls="collapse_@folder.folderid"
+           aria-expanded="false">📁 @folder.displayname</a>
+        @if (folder.parent_folderid == null)
+        {
+            <ul class="nav-second-level collapse" id="collapse_@folder.folderid" data-parent="#navAccordion"></ul>
+        }
+        else
+        {
+            <ul class="nav-second-level collapse" id="collapse_@folder.folderid" data-parent="#SubItems_@folder.parent_folderid"></ul>
+        }
+    </li>
+}
+@foreach (var file in Model.Files)
+{
+    <li class="nav-item">
+        <div class="nav-file text-white">
+            <div class="file-icon" style="background-image: url(/Content/FileIcons/@(file.FileExtension.icon_filename).svg)"></div>
+            @(file.displayname).@(file.FileExtension.displayname)
+        </div>
+    </li>
+}

@@ -8,8 +8,8 @@ namespace InfTeh_test.Models
 {
     public class NavigationModel
     {
+        public Folder ParentFolder { get; set; }
         public IQueryable<Folder> Folders { get; set; }
         public IQueryable<File> Files { get; set; }
-
     }
 }
