@@ -6,8 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="@Url.Content("~/Content/ico/siteicon.ico")" />
     <title>@ViewBag.Title</title>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/custom-js")
     @Styles.Render("~/bundles/css/bootstrap")
-    @Styles.Render("~/bundles/css/custom")
+    @Styles.Render("~/bundles/css/custom-css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body style="padding-top: 4.5rem;">
@@ -25,9 +28,7 @@
     @Html.Partial("_PartialHeader")
 </nav>
 <div class="container body-content">@RenderBody()</div>
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/custom-js")
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

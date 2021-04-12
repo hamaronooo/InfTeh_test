@@ -25,5 +25,13 @@ namespace InfTeh_test.Models.DataContext
 
         [ForeignKey("parent_folderid")]
         public Folder ParentFolder { get; set; }
+
+        // 
+
+        [NotMapped]
+        public IQueryable<Folder> ChildrenFolders { get; set; }
+
+        [NotMapped]
+        public IQueryable<File> ChildrenFiles { get; set; }
     }
 }

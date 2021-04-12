@@ -33,14 +33,13 @@ namespace InfTeh_test
             // ------------------------------------------------------------------- //
 
             bundles.Add(new StyleBundle("~/bundles/css/bootstrap").Include(
-                "~/Content/bootstrap/bootstrap.css",
-                "~/Content/bootstrap/bootstrap-grid.css",
-                "~/Content/bootstrap/bootstrap-reboot.css",
-                "~/Content/bootstrap/bootstrap.css.map"));
+                "~/Content/bootstrap.css",
+                "~/Content/bootstrap-grid.css",
+                "~/Content/bootstrap-reboot.css",
+                "~/Content/bootstrap.css.map"));
 
-            bundles.Add(new StyleBundle("~/bundles/css/custom").Include(
+            bundles.Add(new StyleBundle("~/bundles/css/custom-css").Include(
                 "~/Content/css/select2.min.css",
-                "~/Content/css/select2-bootstrap.css",
                 "~/Content/css/global.css"));
         }
     }

@@ -12,5 +12,7 @@ namespace InfTeh_test.DataContexts
         public DataContext() : base("database") { }
 
         public DbSet<Folder> Folders { get; set; }
+        public DbSet<InfTeh_test.Models.DataContext.File> Files { get; set; }
+        public DbSet<FileExtension> FileExtensions { get; set; }
     }
 }

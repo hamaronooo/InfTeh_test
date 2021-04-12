@@ -1,16 +1,15 @@
-﻿<link href="@Url.Content("~/Content/css/MainPage.css")" rel="stylesheet" />
+﻿
 <script>
     $(document).ready(function () {
         OpenCookieUl();
         $('ul li a').click(function (e) {
             var parent = this.closest('ul');
-            console.log(parent.id);
             SaveState(parent.id);
         });
     });
 </script>
 
-<a class="navbar-brand" href="#">ТЕХСА <span style="color:#f3a23f">Workbook</span></a>
+<a class="navbar-brand" href="#">Explorer</a>
 <button class="navbar-toggler"
         type="button"
         data-toggle="collapse"
@@ -23,7 +22,7 @@
 
 <div class="collapse navbar-collapse" id="navbarCollapse">
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: #343a40;">
-        <a class="navbar-brand" href="#">ТЕХСА <span style="color:#f3a23f">Workbook</span></a>
+        <a class="navbar-brand" href="#">>Explorer</a>
         <button class="navbar-toggler"
                 type="button"
                 data-toggle="collapse"
