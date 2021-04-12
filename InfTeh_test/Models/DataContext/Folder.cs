@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web.Mvc;
 
-
 namespace InfTeh_test.Models.DataContext
 {
     [Table("Folder")]
@@ -16,7 +15,7 @@ namespace InfTeh_test.Models.DataContext
 
         [Required(ErrorMessage = "Обязательно укажите название!")]
         [StringLength(100, MinimumLength = 3,
-            ErrorMessage = "Название должно быть от 1 до 100 символов")]
+            ErrorMessage = "Название папки должно быть от 1 до 100 символов")]
         public string displayname { get; set; }
 
         [HiddenInput(DisplayValue = false)]
