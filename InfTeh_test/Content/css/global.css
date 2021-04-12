@@ -1,0 +1,93 @@
+﻿/* Works on Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #d2691e #cfcfcf;
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #cfcfcf;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #d2691e;
+    border-radius: 20px;
+    border: 3px solid #cfcfcf;
+}
+
+.custom_preloader {
+    position: absolute;
+    z-index: 999998;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: #00000099;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 3.5rem;
+    line-height: 3.5rem;
+    background-color: #ccc;
+}
+
+.navbar-nav, navbar-collapse {
+    background: #343a40 !important;
+}
+
+.nav-link:hover {
+    transition: all 0.4s;
+}
+
+.nav-link-collapse:after {
+    float: right;
+    content: '▽';
+    font-family: 'FontAwesome';
+}
+
+.nav-link-show:after {
+    float: right;
+    content: '▽';
+    font-family: 'FontAwesome';
+}
+
+.nav-item ul.nav-second-level {
+    padding-left: 0;
+}
+
+.nav-item ul.nav-second-level > .nav-item {
+    padding-left: 20px;
+}
+
+@media (min-width: 992px) {
+    .sidenav {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 230px !important;
+        height: calc(100vh - 3.5rem) !important;
+        margin-top: 3.5rem !important;
+        box-sizing: border-box !important;
+        border-top: 1px solid rgba(0, 0, 0, 0.3) !important;
+    }
+
+    .navbar-expand-lg .sidenav {
+        flex-direction: column !important;
+    }
+
+    .content-wrapper {
+        margin-left: 230px !important;
+    }
+
+    .footer {
+        width: calc(100% - 230px) !important;
+        margin-left: 230px !important;
+    }
+}

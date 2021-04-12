@@ -41,7 +41,7 @@ namespace InfTeh_test
             bundles.Add(new StyleBundle("~/bundles/css/custom").Include(
                 "~/Content/css/select2.min.css",
                 "~/Content/css/select2-bootstrap.css",
-                "~/Content/css/Main/Main.css"));
+                "~/Content/css/global.css"));
         }
     }
 }

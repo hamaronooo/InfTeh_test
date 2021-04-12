@@ -126,8 +126,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Classes\Colors.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ModalController.cs" />
+    <Compile Include="Controllers\ToastController.cs" />
     <Compile Include="DataContexts\DataContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -136,6 +138,7 @@
     <Compile Include="Models\DataContext\FileExtension.cs" />
     <Compile Include="Models\DataContext\Folder.cs" />
     <Compile Include="Models\NavigationModel.cs" />
+    <Compile Include="Models\Toast\ToastModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -145,6 +148,7 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\global.css" />
     <Content Include="Content\css\select2.css" />
     <Content Include="Content\css\select2.min.css" />
     <Content Include="Content\themes\base\accordion.css" />
@@ -389,6 +393,10 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Shared\_PartialHeader.cshtml" />
     <Content Include="Views\Shared\_PartialModal.cshtml" />
+    <Content Include="Views\Shared\_PartialLoadingSpinner.cshtml" />
+    <Content Include="Views\Toast\Partial_Toast.cshtml" />
+    <Content Include="Views\Toast\Partial_ToastContainer.cshtml" />
+    <Content Include="Views\Toast\Partial_ToastValidation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

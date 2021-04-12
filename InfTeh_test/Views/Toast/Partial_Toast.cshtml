@@ -1,0 +1,50 @@
+﻿@model InfTeh_test.Models.Toast.ToastModel
+
+<style>
+    .toast {
+        min-width: 220px !important;
+        -ms-transform: scale(1.4);
+        -webkit-transform: scale(1.4);
+        transform: translateX(-50%) scale(1.4);
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+        $(".toast").toast(
+            {
+                autohide: @Model.IsAutohide.ToString().ToLower(),
+                animation: true,
+                delay: @Model.Delay_ms
+            }
+        );
+        $('.toast').draggable();
+        $(".toast").toast('show');
+    });
+</script>
+
+<div role="alert" aria-live="assertive" aria-atomic="true" class="toast bg-@Model.BgColor shadow"
+     data-autohide="false">
+    <div class="toast-header bg-@Model.HeadColor text-@Model.HeadTextColor">
+        <strong class="mr-auto">@Model.Head</strong>
+        <small>@Model.SmallHead</small>
+        <a href="#" class="text-@Model.CloseLinkColor" data-dismiss="toast" aria-label="Close">@Model.CloseText</a>
+    </div>
+    <div class="toast-body text-@Model.BodyTextColor">
+        @if (Model.Message.Contains('`')) {
+            <ul>
+                @foreach (var item in Model.Message.Split('`'))
+                {
+                    if (!string.IsNullOrWhiteSpace(item))
+                    {
+                        <li>@item</li>
+                    }
+                }
+            </ul>
+        }
+        else
+        {
+            @Model.Message
+        }
+    </div>
+</div>

@@ -1,0 +1,36 @@
+﻿@model string[]
+
+<style>
+    .toast {
+        min-width: 220px !important;
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+        $(".toast").toast(
+            {
+                autohide: false,
+                animation: true
+            }
+        );
+        $('.toast').draggable();
+        $(".toast").toast('show');
+    });
+</script>
+
+<div role="alert" aria-live="assertive" aria-atomic="true" class="toast bg-danger "
+     data-autohide="false">
+    <div class="toast-header text-white">
+        <strong class="mr-auto text-dark">Ошибка в вводе!</strong>
+        <a href="#" class="text-dark" data-dismiss="toast" aria-label="Close">Закрыть</a>
+    </div>
+    <div class="toast-body text-white">
+        <ul class="text-white pl-1">
+            @foreach (var item in Model)
+            {
+                <li>@item</li>
+            }
+        </ul>
+    </div>
+</div>
