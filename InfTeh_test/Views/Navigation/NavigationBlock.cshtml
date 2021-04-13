@@ -2,11 +2,11 @@
 @if (Model.Files.Any() || Model.Folders.Any())
 {
 <script>
-        $(document).ready(function () {
-            $('ul li a').off('click').on('click', function (e) {
-                loadChildrenByElement(this);
-            });
+    $(document).ready(function () {
+        $('ul li a').off('click').on('click', function (e) {
+            loadChildrenByElement(this);
         });
+    });
 </script>
 }
 @foreach (var folder in Model.Folders)
@@ -14,7 +14,8 @@
     <li class="nav-item" data-folder-id="@folder.folderid">
         <div id="folder-container-@folder.folderid" 
              data-folder-id="@folder.folderid"
-             data-parent-folder-id="@folder.parent_folderid">
+             data-parent-folder-id="@folder.parent_folderid"
+             style="position: relative;">
             <a class="nav-link nav-link-collapse"
                href="#"
                id="SubItems_@folder.folderid"
@@ -23,6 +24,18 @@
                data-target="#collapse_@folder.folderid"
                aria-controls="collapse_@folder.folderid"
                aria-expanded="false">📁 @folder.displayname</a>
+            <button class="btn-sm btn-warning hidden-control mr-5" 
+                    onclick="renameFolder('@folder.folderid')"
+                    data-toggle="modal"
+                    data-target="#ModalWindow">
+                <i class="fa fa-pencil-square" aria-hidden="true"></i>
+            </button>
+            <button class="btn-sm btn-danger hidden-control" 
+                    onclick="deleteFolder('@folder.folderid')"
+                    data-toggle="modal"
+                    data-target="#ModalWindow">
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
+            </button>  
         </div>
         @if (folder.parent_folderid == null)
         {
@@ -48,3 +61,32 @@
         </div>
     </li>
 }
+
+<script>
+    function deleteFolder(folderid) {
+        showPreloader();
+        $.ajax({
+            url: "@Url.Action("_PartialDeleteFolderForm", "Folder")",
+            data: {
+                folderid: folderid
+            },
+            success: function (html) {
+                $('#ModalBody').html(html);
+                hidePreloader();
+            }
+        });
+    }
+    function renameFolder(folderid) {
+        showPreloader();
+        $.ajax({
+            url: "@Url.Action("_PartialRenameFolderForm", "Folder")",
+            data: {
+                folderid: folderid
+            },
+            success: function (html) {
+                $('#ModalBody').html(html);
+                hidePreloader();
+            }
+        });
+    }
+</script>

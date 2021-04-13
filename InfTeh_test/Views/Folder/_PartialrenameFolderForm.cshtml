@@ -1,0 +1,61 @@
+﻿@model InfTeh_test.Models.DataContext.Folder
+
+@if (Model != null)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mb-2">
+                Переименование папки 
+                <b>@Model.displayname</b>.
+            </div>
+            <div class="col-12 mb-2">
+                @Html.TextBoxFor(m => m.displayname, new { @class = "form-control col-12 col-md-8" })
+                <div id="folderValidation" class="text-danger"></div>
+                </div>
+            <hr />
+
+            <div class="justify-content-between col-12">
+                <input type="button" onclick="renameFolder()" value="Сохранить" class="btn btn-primary col-4" />
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function renameFolder() {
+            if ($('#displayname').val().length < 1) {
+                return;
+            }
+
+            showPreloader();
+            $.ajax({
+                url: "@Url.Action("RenameFolder", "Folder")",
+                method: "POST",
+                data: {
+                    folderid: @Model.folderid,
+                    newName: $('#displayname').val()
+                },
+                success: function (html) {
+                    $('#toastContainer').html(html);
+                    loadChildrenByFolderID(@Model.parent_folderid);
+                    $('#ModalWindow').modal('hide');
+                    hidePreloader();
+                }
+            });
+        }
+
+        $(document).ready(function() {
+            $('#displayname').on('input',
+                function () {
+                    if ($('#displayname').val().length < 1)
+                        $('#folderValidation').html('Имя должно быть указано!');
+                    else $('#folderValidation').html('');
+                });
+        });
+    </script>
+}
+else
+{
+    <h5 class="col-12 text-danger">
+        Такая папка не найдена.
+    </h5>
+}

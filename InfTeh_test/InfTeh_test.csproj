@@ -127,6 +127,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Classes\Colors.cs" />
+    <Compile Include="Controllers\ExplorerController.cs" />
     <Compile Include="Controllers\FolderController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ModalController.cs" />
@@ -451,6 +452,9 @@
     <Content Include="Views\Toast\Partial_ToastValidation.cshtml" />
     <Content Include="Views\Navigation\NavigationBlock.cshtml" />
     <Content Include="Views\Folder\_PartialCreateFolderForm.cshtml" />
+    <Content Include="Views\Explorer\_PartialExplorerContainer.cshtml" />
+    <Content Include="Views\Folder\_PartialDeleteFolderForm.cshtml" />
+    <Content Include="Views\Folder\_PartialRenameFolderForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

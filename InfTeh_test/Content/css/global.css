@@ -48,13 +48,13 @@
 
 .nav-link-collapse:after {
     float: right;
-    content: '▽';
+    content: '';
     font-family: 'FontAwesome';
 }
 
 .nav-link-show:after {
     float: right;
-    content: '▽';
+    content: '';
     font-family: 'FontAwesome';
 }
 
@@ -94,6 +94,29 @@ a {
         color: black !important;
     }
 
+#explorer_content_container {
+    min-height: 700px;
+}
+#explorer_header_container {
+    min-height: 50px;
+}
+
+.hidden-control {
+    position: absolute;
+    float: right;
+    top: 3px;
+    right: 5px;
+    display: inline-block;
+    opacity: 0;
+    visibility: hidden;
+    transition: all .2s ease
+}
+
+li div:hover .hidden-control {
+    opacity: 1;
+    visibility: visible;
+}
+
 @media (min-width: 992px) {
     .sidenav {
         position: absolute !important;
@@ -117,5 +140,8 @@ a {
     .footer {
         width: calc(100% - 230px) !important;
         margin-left: 230px !important;
+    }
+    #explorer_wrapper {
+        margin-left: 330px;
     }
 }

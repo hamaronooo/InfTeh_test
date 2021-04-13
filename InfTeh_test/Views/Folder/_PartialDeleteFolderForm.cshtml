@@ -1,0 +1,43 @@
+﻿@model InfTeh_test.Models.DataContext.Folder
+
+@if (Model != null)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                Вы действительно хотите удалить папку
+                <b>@Model.displayname</b>?
+            </div>
+            <hr />
+
+            <div class="justify-content-between col-12">
+                <input type="button" onclick="deleteFolderByMode(0)" value="Удалить папку и все файлы" class="btn btn-danger col-4" />
+            </div>
+    </div>
+    </div>
+
+    <script>
+        function deleteFolderByMode(mode) {
+            showPreloader();
+            $.ajax({
+                url: "@Url.Action("DeleteFolder", "Folder")",
+                method: "POST",
+                data: {
+                    folderid: @Model.folderid
+                },
+                success: function (html) {
+                    $('#toastContainer').html(html);
+                    loadChildrenByFolderID(@Model.parent_folderid);
+                    $('#ModalWindow').modal('hide');
+                    hidePreloader();
+                }
+            });
+        }
+    </script>
+}
+else
+{
+    <h5 class="col-12 text-danger">
+        Такая папка не найдена.
+    </h5>
+}
