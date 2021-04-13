@@ -14,7 +14,7 @@ namespace InfTeh_test.Models.DataContext
         public int folderid { get; set; } = 0;
 
         [Required(ErrorMessage = "Обязательно укажите название!")]
-        [StringLength(100, MinimumLength = 3,
+        [StringLength(100, MinimumLength = 1,
             ErrorMessage = "Название папки должно быть от 1 до 100 символов")]
         public string displayname { get; set; }
 

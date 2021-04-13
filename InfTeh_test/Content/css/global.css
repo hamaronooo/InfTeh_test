@@ -79,6 +79,21 @@
     background-repeat: no-repeat;
 }
 
+a {
+    color: wheat;
+}
+.head-controls a {
+    color: orange;
+}
+
+.selectedElement {
+    background-color: #989898 !important;
+    border-right: 2px solid orange;
+}
+    .selectedElement > a {
+        color: black !important;
+    }
+
 @media (min-width: 992px) {
     .sidenav {
         position: absolute !important;

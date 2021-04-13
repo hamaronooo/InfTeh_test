@@ -33,6 +33,14 @@ namespace InfTeh_test.Controllers
                 .Where(m => m.folderid == parentFolderid)
                 .Include(m=>m.FileExtension);
 
+            foreach (var file in model.Files)
+            {
+                string relativePath = "~/Content/FileIcons/" + file.FileExtension?.icon_filename + ".svg";
+                file.IconFileName = System.IO.File.Exists(HttpContext.Server.MapPath(relativePath))
+                    ? file.FileExtension?.icon_filename + ".svg"
+                    : "unknown.svg";
+            }
+
             return PartialView("NavigationBlock", model);
         }
     }

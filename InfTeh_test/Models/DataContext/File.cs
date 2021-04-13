@@ -35,5 +35,10 @@ namespace InfTeh_test.Models.DataContext
         
         [ForeignKey("folderid")]
         public Folder Folder { get; set; }
+
+        //
+
+        [NotMapped]
+        public string IconFileName { get; set; } = "unknown.svg";
     }
 }

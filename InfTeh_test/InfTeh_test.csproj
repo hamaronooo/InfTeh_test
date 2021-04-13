@@ -127,6 +127,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Classes\Colors.cs" />
+    <Compile Include="Controllers\FolderController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ModalController.cs" />
     <Compile Include="Controllers\NavigationController.cs" />
@@ -188,10 +189,13 @@
     <Content Include="Content\FileIcons\search.svg" />
     <Content Include="Content\FileIcons\svg.svg" />
     <Content Include="Content\FileIcons\txt.svg" />
+    <Content Include="Content\FileIcons\unknown.svg" />
     <Content Include="Content\FileIcons\xls.svg" />
     <Content Include="Content\FileIcons\xml.svg" />
     <Content Include="Content\FileIcons\zip-1.svg" />
     <Content Include="Content\FileIcons\zip.svg" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\svg\folder.svg" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
@@ -234,11 +238,13 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\custom\ObjectSelection.js" />
     <Content Include="Scripts\custom\Preloader.js" />
     <Content Include="Scripts\custom\SideMenuCookieOpen.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
@@ -319,6 +325,11 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />
@@ -439,6 +450,7 @@
     <Content Include="Views\Toast\Partial_ToastContainer.cshtml" />
     <Content Include="Views\Toast\Partial_ToastValidation.cshtml" />
     <Content Include="Views\Navigation\NavigationBlock.cshtml" />
+    <Content Include="Views\Folder\_PartialCreateFolderForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

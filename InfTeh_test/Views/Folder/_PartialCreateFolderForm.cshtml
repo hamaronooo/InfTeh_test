@@ -1,0 +1,58 @@
+﻿@model int?
+<div id="createFolderForm">
+    <style>
+        #createFolderForm {
+            margin: 5px 10px;
+        }
+
+            #createFolderForm div {
+                width: 100%;
+                position: relative;
+            }
+
+            #createFolderForm input[type="text"] {
+                border: 1px solid black;
+                width: 100%;
+                display: inline-block
+            }
+
+            #createFolderForm button {
+                position: absolute;
+                float: right;
+                top: 3px;
+                right: 5px;
+                display: inline-block
+            }
+    </style>
+    <div>
+        <input type="text" placeholder="Введите название" class="form-control" />
+        <button class="btn-sm btn-primary" onclick="createFolder()">
+            <i class="fa fa-floppy-o" aria-hidden="true"></i>
+        </button>
+    </div>
+</div>
+
+<script>
+    function createFolder() {
+        console.log($('#createFolderForm').prev('ul [data-folder-id]').prop('[data-folder-id]'));
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("CreateFolder", "Folder")",
+            data: {
+                name: $('#createFolderForm input:first').val(),
+                parent_folderid: '@Model'
+            },
+            success: function (html) {
+                $('#toastContainer').html(html);
+                @if (Model == null)
+                {
+                    <text>loadRootObjects();</text>
+                }
+                else
+                {
+                    <text>loadChildrenByFolderID(selectedElement.attr('data-folder-id'));</text>
+                }
+            }
+        });
+    }
+</script>

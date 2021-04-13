@@ -25,6 +25,7 @@ namespace InfTeh_test
 
             bundles.Add(new ScriptBundle("~/bundles/custom-js").Include(
                         "~/Scripts/custom/Preloader.js",
+                        "~/Scripts/custom/ObjectSelection.js",
                         "~/Scripts/custom/SideMenuCookieOpen.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
@@ -36,6 +37,7 @@ namespace InfTeh_test
                 "~/Content/bootstrap.css",
                 "~/Content/bootstrap-grid.css",
                 "~/Content/bootstrap-reboot.css",
+                "~/Content/font-awesome.min.css",
                 "~/Content/bootstrap.css.map"));
 
             bundles.Add(new StyleBundle("~/bundles/css/custom-css").Include(

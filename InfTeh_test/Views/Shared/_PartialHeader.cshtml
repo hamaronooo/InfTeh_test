@@ -5,17 +5,44 @@
 </style>
 <script>
     $(document).ready(function () {
-        showPreloader();
         //OpenCookieUl();
         $('ul li a').click(function (e) {
             var parent = this.closest('ul');
             SaveState(parent.id);
         });
+        loadRootObjects();
+    });
+    function loadRootObjects() {
+        showPreloader();
         $('#navAccordion').load('@Url.Action("GetChildren","Navigation")', function() {
             hidePreloader();
         });
+    }
+    function loadChildrenByElement(jsElem) {
+        var folderid = jsElem.getAttribute('data-folder-id');
 
-    });
+        setPreloader($('#collapse_' + jsElem.id.replace("SubItems_", "")));
+
+        setTimeout(function () {
+            $('#collapse_' + folderid).load('@Url.Action("GetChildren","Navigation")?parentFolderid=' + folderid, function () {
+            });
+        }, 300);
+        setNavEventListener();
+    }
+    function loadChildrenByFolderID(folderid) {
+        if (folderid == null) {
+            loadRootObjects();
+            return;
+        }
+
+        setPreloader($('#collapse_' + folderid));
+
+        setTimeout(function () {
+            $('#collapse_' + folderid).load('@Url.Action("GetChildren","Navigation")?parentFolderid=' + folderid, function () {
+            });
+        }, 300);
+        setNavEventListener();
+    }
 
 </script>
 
@@ -46,7 +73,34 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto sidenav" id="navAccordion"></ul>
         </div>
+        
+        <div class="head-controls d-none d-md-flex">
+            <button onclick="CreateFolderForm()"
+               @*data-toggle="modal"
+               data-target="#ModalWindow"*@
+               class="nav-link ml-md-auto ml-sm-0">Создать папку</button>
+        </div>
     </nav>
 </div>
 
-
+<script>
+    function CreateFolderForm() {
+        $('#createFolderForm').remove();
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("_PartialCreateFolderForm", "Folder")",
+            data: {
+                parent_folder: getParentFolderID()
+            },
+            success: function (html) {
+                if (selectedElement != null) {
+                    selectedElement.next().prepend(html);
+                }
+                else {
+                    $('#navAccordion').prepend('<li>'+html+'</li>');
+                }
+            }
+        });
+      
+    }
+</script>
