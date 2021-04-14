@@ -1,6 +1,12 @@
 ﻿@model InfTeh_test.Models.DataContext.File
 
-@Html.TextAreaFor(m=>m.FileContentAsString, new{ @class="form-control text-white bg-dark" })
+    @Html.TextAreaFor(m => m.FileContentAsString, 
+        new
+        {
+            @class = "form-control text-white bg-dark",
+            @resize = "vertical",
+            @style = "max-height: 700px"
+        })
 
 <script>
     $(document).ready(function() {
