@@ -4,4 +4,18 @@
     Layout = "../Shared/_Layout.cshtml";
 }
 
-@Html.Action("_PartialExplorerContainer", "Explorer")
+<div class="mx-4 p-2">
+    <div id="explorer_wrapper">
+        <div class="row bg-light border rounded-top" id="explorer_header_container">
+
+        </div>
+        <div class="row border rounded-bottom">
+            <div class="col-12 col-md-8" id="explorer_content_container">
+
+            </div>
+            <div class="col-12 col-md-4" id="explorer_filedrop_container">
+                @Html.Action("_PartialFiledrop", "Upload")
+            </div>
+        </div>
+    </div>
+</div>

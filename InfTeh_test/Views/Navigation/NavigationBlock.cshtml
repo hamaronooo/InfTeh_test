@@ -55,9 +55,24 @@
         <div id="file-container-@file.fileid" 
              class="nav-file text-white" 
              data-file-id="@file.fileid"
-             data-parent-folder-id="@file.folderid">
-            <div class="file-icon" style="background-image: url(/Content/FileIcons/@file.IconFileName"></div>
+             data-parent-folder-id="@file.folderid"
+             style="position: relative;">
+            <div class="file-icon" style="background-image: url(/Content/FileIcons/@file.IconFileName)"></div>
             <a href="#"> @(file.displayname).@(file.FileExtension?.displayname)</a>
+            <a class="btn-sm btn-primary hidden-control" style="right:100px" 
+               href="@Url.Action("DownloadFile","File")?fileid=@file.fileid">
+                <i class="fa fa-download" aria-hidden="true"></i>
+            </a>
+            <button class="btn-sm btn-success hidden-control mr-5" 
+                    onclick="showFileData(@file.fileid)">
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            </button>  
+            <button class="btn-sm btn-danger hidden-control" 
+                    onclick="deleteFile('@file.fileid')"
+                    data-toggle="modal"
+                    data-target="#ModalWindow">
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
+            </button>  
         </div>
     </li>
 }
@@ -85,6 +100,33 @@
             },
             success: function (html) {
                 $('#ModalBody').html(html);
+                hidePreloader();
+            }
+        });
+    }
+    function deleteFile(fileid) {
+        showPreloader();
+        $.ajax({
+            url: "@Url.Action("_PartialDeleteFileForm", "File")",
+            data: {
+                fileid: fileid
+            },
+            success: function (html) {
+                $('#ModalBody').html(html);
+                hidePreloader();
+            }
+        });
+    }
+    function showFileData(fileid) {
+        showPreloader();
+        $.ajax({
+            method: "POST",
+            url: "@Url.Action("_PartialShowFileData", "File")",
+            data: {
+                fileid: fileid
+            },
+            success: function (html) {
+                $('#explorer_content_container').html(html);
                 hidePreloader();
             }
         });

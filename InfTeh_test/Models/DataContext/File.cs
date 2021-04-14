@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Text;
 using System.Web.Mvc;
 
 namespace InfTeh_test.Models.DataContext
@@ -28,6 +29,8 @@ namespace InfTeh_test.Models.DataContext
         [HiddenInput(DisplayValue = false)]
         public int? folderid { get; set; }
 
+        public byte[] file_content { get; set; }
+
         //
 
         [ForeignKey("file_extensionid")]
@@ -40,5 +43,14 @@ namespace InfTeh_test.Models.DataContext
 
         [NotMapped]
         public string IconFileName { get; set; } = "unknown.svg";
+
+        [NotMapped]
+        public string FileContentAsString {
+            get
+            {
+                return file_content != null ? Encoding.UTF8.GetString(file_content) : "";
+            }
+            set { }
+        }
     }
 }

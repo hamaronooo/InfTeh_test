@@ -37,7 +37,7 @@ namespace InfTeh_test.Controllers
             {
                 string relativePath = "~/Content/FileIcons/" + file.FileExtension?.icon_filename + ".svg";
                 file.IconFileName = System.IO.File.Exists(HttpContext.Server.MapPath(relativePath))
-                    ? file.FileExtension?.icon_filename + ".svg"
+                    ? file.FileExtension?.icon_filename
                     : "unknown.svg";
             }
 

@@ -15,7 +15,6 @@ namespace InfTeh_test
                         "~/Scripts/modernizr-*"));
 
             // ------------------------------------------------------------------- //
-            // ------------------------------------------------------------------- //
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
@@ -26,10 +25,14 @@ namespace InfTeh_test
             bundles.Add(new ScriptBundle("~/bundles/custom-js").Include(
                         "~/Scripts/custom/Preloader.js",
                         "~/Scripts/custom/ObjectSelection.js",
-                        "~/Scripts/custom/SideMenuCookieOpen.js"));
+                        "~/Scripts/custom/SideMenuCookieOpen.js",
+                        "~/Scripts/select2.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/dropzone-js").Include(
+                "~/Scripts/jquery.filedrop.js"));
 
             // ------------------------------------------------------------------- //
 
@@ -43,6 +46,8 @@ namespace InfTeh_test
             bundles.Add(new StyleBundle("~/bundles/css/custom-css").Include(
                 "~/Content/css/select2.min.css",
                 "~/Content/css/global.css"));
+
+            // ------------------------------------------------------------------- //
         }
     }
 }

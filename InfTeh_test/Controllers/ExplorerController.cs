@@ -8,9 +8,6 @@ namespace InfTeh_test.Controllers
 {
     public class ExplorerController : Controller
     {
-        public ActionResult _PartialExplorerContainer()
-        {
-            return PartialView();
-        }
+        
     }
 }

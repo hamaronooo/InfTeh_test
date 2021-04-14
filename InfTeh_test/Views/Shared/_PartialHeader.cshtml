@@ -75,16 +75,22 @@
         </div>
 
         <div class="head-controls d-none d-md-flex">
-            <button onclick="CreateFolderForm()"
-                    class="nav-link ml-md-auto ml-sm-0">
+            <button onclick="createFolderForm()"
+                    class="btn btn-sm btn-primary mr-2">
                 Создать папку
+            </button>
+            <button class="btn btn-sm  btn-primary"
+                    onclick="loadIconCreateForm()"
+                    data-toggle="modal"
+                    data-target="#ModalWindow">
+                Добавить иконку расширения
             </button>
         </div>
     </nav>
 </div>
 
 <script>
-    function CreateFolderForm() {
+    function createFolderForm() {
         $('#createFolderForm').remove();
         $.ajax({
             type: "GET",
@@ -100,6 +106,19 @@
                     $('#navAccordion').prepend('<li>'+html+'</li>');
                 }
             }
+        });
+    }
+
+    function loadIconCreateForm() {
+        showPreloader();
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("_PartialIconCreateForm", "FileExtension")",
+            success: function (html) {
+                $('#ModalBody').html(html);
+            }
+        }).always(function() {
+            hidePreloader();
         });
     }
 </script>

@@ -69,6 +69,9 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Mvc, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.2\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -89,10 +92,6 @@
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Optimization">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
@@ -128,11 +127,14 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Classes\Colors.cs" />
     <Compile Include="Controllers\ExplorerController.cs" />
+    <Compile Include="Controllers\FileController.cs" />
+    <Compile Include="Controllers\FileExtensionController.cs" />
     <Compile Include="Controllers\FolderController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ModalController.cs" />
     <Compile Include="Controllers\NavigationController.cs" />
     <Compile Include="Controllers\ToastController.cs" />
+    <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="DataContexts\DataContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -341,6 +343,7 @@
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
     <Content Include="Scripts\jquery.cookie-1.4.1.min.js" />
     <Content Include="Scripts\jquery.cookie.js" />
+    <Content Include="Scripts\jquery.filedrop.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -452,12 +455,16 @@
     <Content Include="Views\Toast\Partial_ToastValidation.cshtml" />
     <Content Include="Views\Navigation\NavigationBlock.cshtml" />
     <Content Include="Views\Folder\_PartialCreateFolderForm.cshtml" />
-    <Content Include="Views\Explorer\_PartialExplorerContainer.cshtml" />
     <Content Include="Views\Folder\_PartialDeleteFolderForm.cshtml" />
     <Content Include="Views\Folder\_PartialRenameFolderForm.cshtml" />
+    <Content Include="Views\Upload\_PartialFiledrop.cshtml" />
+    <Content Include="Views\FileExtension\_PartialIconCreateForm.cshtml" />
+    <Content Include="Views\File\_PartialDeleteFileForm.cshtml" />
+    <Content Include="Views\File\_PartialShowFileData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Explorer\" />
     <Folder Include="Views\Modal\" />
   </ItemGroup>
   <ItemGroup>

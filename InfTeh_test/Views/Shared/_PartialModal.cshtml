@@ -3,12 +3,22 @@
         $('#ModalWindow').draggable();
     });
 </script>
+<style>
+    #ModalLabel ~ button {
+        position: absolute !important;
+        top: 3px;
+        right: 13px;
+    }
+</style>
 <div class="modal fade" id="ModalWindow" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="ModalLabel">Редактирование</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <div class="modal-header" style="max-height: 32px">
+                <h5 class="modal-title" id="ModalLabel"></h5>
+                <button type="button" 
+                        class="close" 
+                        data-dismiss="modal" 
+                        aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>

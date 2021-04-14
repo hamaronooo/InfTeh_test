@@ -34,6 +34,21 @@ namespace InfTeh_test.Controllers
             toast.CloseLinkColor = Colors.white;
             return PartialView("Partial_Toast", toast);
         }
+        
+        public ActionResult Partial_SuccesUploadedToast()
+        {
+            ToastModel toast = new ToastModel();
+            toast.Head = "Успех";
+            toast.CloseText = "Закрыть";
+            toast.Message = "Файл успешно загружен!";
+            toast.Delay_ms = 20000;
+            toast.BgColor = Colors.white;
+            toast.HeadColor = Colors.success;
+            toast.HeadTextColor = Colors.white;
+            toast.BodyTextColor = Colors.dark;
+            toast.CloseLinkColor = Colors.white;
+            return PartialView("Partial_Toast", toast);
+        }
         public ActionResult Partial_UpdatedToast()
         {
             ToastModel toast = new ToastModel();
@@ -76,6 +91,22 @@ namespace InfTeh_test.Controllers
             toast.CloseLinkColor = Colors.warning;
             return PartialView("Partial_Toast", toast);
         }
+
+        public ActionResult Partial_FileAlreadyExistsToast()
+        {
+            ToastModel toast = new ToastModel();
+            toast.Head = "Ошибка";
+            toast.CloseText = "Закрыть";
+            toast.Message = "Такой файл уже существует!";
+            toast.Delay_ms = 20000;
+            toast.BgColor = Colors.warning;
+            toast.HeadColor = Colors.danger;
+            toast.HeadTextColor = Colors.white;
+            toast.BodyTextColor = Colors.dark;
+            toast.CloseLinkColor = Colors.warning;
+            return PartialView("Partial_Toast", toast);
+        }
+
         public ActionResult Partial_ExErrorToast(string ex)
         {
             ToastModel toast = new ToastModel();

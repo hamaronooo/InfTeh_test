@@ -1,0 +1,9 @@
+﻿@model InfTeh_test.Models.DataContext.File
+
+@Html.TextAreaFor(m=>m.FileContentAsString, new{ @class="form-control text-white bg-dark" })
+
+<script>
+    $(document).ready(function() {
+        $('#FileContentAsString').attr('rows', '@(Model.FileContentAsString.Split('\n').Length)');
+    });
+</script>

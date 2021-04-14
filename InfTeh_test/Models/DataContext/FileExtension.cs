@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -18,9 +19,12 @@ namespace InfTeh_test.Models.DataContext
             ErrorMessage = "Название расширения должно быть от 1 до 20 символов")]
         public string displayname { get; set; }
 
-        [Required(ErrorMessage = "Обязательно укажите название иконки!")]
         [StringLength(200, MinimumLength = 1,
             ErrorMessage = "Название иконки должно быть от 1 до 200 символов")]
         public string icon_filename { get; set; }
+
+        //
+        [NotMapped]
+        public List<string> IconsFilesNamesList;
     }
 }

@@ -1,0 +1,64 @@
+﻿@model InfTeh_test.Models.DataContext.FileExtension
+
+<script>
+    $(document).ready(function() {
+        $('#icon_filename').select2(
+            {
+                dropdownParent: $("#ModalWindow"),
+                width: 'resolve'
+            });
+    showSelectedFile();
+        $('#icon_filename').on('select2:select',
+        function () {
+            showSelectedFile();
+        });
+    });
+    function showSelectedFile() {
+        var selected = $('#icon_filename option:selected').text();
+        $('#IconPreview').css('background-image', 'url(/Content/FileIcons/' + selected + ')');
+    }
+</script>
+
+<style>
+    #IconPreview {
+        position: absolute;
+        top: 30px;
+        right: 50px;
+        height: 100px;
+        width: 100px;
+        z-index: 1000;
+        background-position: center;
+        background-size: contain;
+    }
+</style>
+
+@using (Ajax.BeginForm("CreateFileExtension", "FileExtension", new AjaxOptions()
+    {
+        UpdateTargetId = "toastContainer"
+    }))
+    {
+        <h5 class="text-primary">Добавление расширения файла</h5>
+        <div class="container">
+            <div class="row mb-2">
+                <span>Введите название расширения файла, например <b>docx</b></span>
+            </div>
+            <div class="row mb-2">
+                @Html.TextBoxFor(m => m.displayname,
+                    new { @class = "form-control col-12 col-md-4" })
+            </div>
+            <div class="row mb-2">
+                <span>Выберите файл с изображением расширения</span>
+            </div>
+            <div class="row mb-2">
+                @Html.DropDownListFor(m=>m.icon_filename,
+                    new SelectList(Model.IconsFilesNamesList),new{@class=""})
+            </div>
+            <div class="row mb-2">
+                <input type="submit" value="Сохранить" class="btn btn-primary" />
+            </div>
+            <div>
+                @Html.ValidationSummary()
+            </div>
+        </div>
+    }
+        <div id="IconPreview"></div>
