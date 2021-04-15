@@ -2,7 +2,7 @@
 
 <div class="col p-2">
     <input type="button" value="Сохранить" onclick="SaveFileData()" class="btn btn-sm btn-outline-success" />
-    <a href="@Url.Action("DownloadFile","File")?fileid=@Model.fileid"
+    <a href="@Url.Action("DownloadFile", "File")?fileid=@Model.fileid"
        class="btn btn-sm btn-outline-primary">Скачать</a>
     <input type="button" value="Удалить"
            data-toggle="modal"
@@ -11,6 +11,14 @@
            class="btn btn-sm btn-outline-danger" />
 </div>
 
+<style>
+    #extPreview {
+        height: 500px;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center
+    }
+</style>
 
 @Html.HiddenFor(m => m.fileid)
 <div class="col-12 input-group mb-3">
@@ -33,26 +41,11 @@
             @class = "form-control"
         })
 </div>
-@Html.TextAreaFor(m => m.FileContentAsString,
-    new
-    {
-        @class = "form-control text-white bg-dark",
-        @resize = "vertical",
-        @style = "max-height: 700px; height: 700px;"
-    })
 
+<div id="extPreview" style="background-image: url(/Content/FileIcons/@Model.FileExtension.icon_filename) ">
 
+</div>
 
-
-@if (string.IsNullOrEmpty(Model.FileContentAsString))
-{
-    <script>
-        $(document).ready(function () {
-            $('#FileContentAsString').attr('placeholder',
-                'Данный файл пустой.');
-        });
-    </script>
-}
 
 <script>
     function SaveFileData() {
@@ -63,8 +56,7 @@
             data: {
                 fileid: @Model.fileid,
                 fileName: $('#displayname').val(),
-                description: $('#description').val(),
-                content: $('#FileContentAsString').val()
+                description: $('#description').val()
             },
             success: function (html) {
                 $('#toastContainer').html(html);

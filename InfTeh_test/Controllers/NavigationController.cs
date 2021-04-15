@@ -35,7 +35,7 @@ namespace InfTeh_test.Controllers
 
             foreach (var file in model.Files)
             {
-                string relativePath = "~/Content/FileIcons/" + file.FileExtension?.icon_filename + ".svg";
+                string relativePath = "~/Content/FileIcons/" + file.FileExtension?.icon_filename;
                 file.IconFileName = System.IO.File.Exists(HttpContext.Server.MapPath(relativePath))
                     ? file.FileExtension?.icon_filename
                     : "unknown.svg";

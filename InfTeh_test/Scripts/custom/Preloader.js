@@ -25,6 +25,20 @@ function setPreloader(jqElement) {
         '<span class="sr-only">Loading...</span>' +
         '</div>' +
         '</div>';
-    if (jqElement.is(':empty'))
-        jqElement.html(Content);
+    jqElement.html(Content);
+}
+
+// над папкой
+function setFolderPreloader(folderid) {
+    var Content = '<div class="d-flex justify-content-center">' +
+        '<div class="spinner-grow text-warning"' +
+        'role="status">' +
+        '<span class="sr-only">Loading...</span>' +
+        '</div>' +
+        '</div>';
+    $('#folder_preloader_' + folderid).html(Content);
+}
+
+function removeFolderPreloader(folderid) {
+    $('#folder_preloader_' + folderid).html('');
 }

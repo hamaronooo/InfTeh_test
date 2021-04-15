@@ -5,7 +5,7 @@
         $('#icon_filename').select2(
             {
                 dropdownParent: $("#ModalWindow"),
-                width: 'resolve'
+                width: '100%'
             });
     showSelectedFile();
         $('#icon_filename').on('select2:select',
@@ -49,7 +49,7 @@
             <div class="row mb-2">
                 <span>Выберите файл с изображением расширения</span>
             </div>
-            <div class="row mb-2">
+            <div class="row mb-2 w-100 d-block">
                 @Html.DropDownListFor(m=>m.icon_filename,
                     new SelectList(Model.IconsFilesNamesList),new{@class=""})
             </div>

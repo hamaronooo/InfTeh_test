@@ -21,12 +21,14 @@
     function loadChildrenByElement(jsElem) {
         var folderid = jsElem.getAttribute('data-folder-id');
 
-        setPreloader($('#collapse_' + jsElem.id.replace("SubItems_", "")));
-
+        setFolderPreloader(folderid);
         setTimeout(function () {
-            $('#collapse_' + folderid).load('@Url.Action("GetChildren","Navigation")?parentFolderid=' + folderid, function () {
+            $('#collapse_' + folderid).load('@Url.Action("GetChildren","Navigation")?parentFolderid=' + folderid, function (response) {
+                if (response.length < 1)
+                    $('#collapse_' + folderid).html('<div class="text-center text-white">Папка пустая</div>');
             });
-        }, 300);
+            removeFolderPreloader(folderid);
+        }, 800);
         setNavEventListener();
     }
     function loadChildrenByFolderID(folderid) {
@@ -34,13 +36,15 @@
             loadRootObjects();
             return;
         }
-
-        setPreloader($('#collapse_' + folderid));
+        setFolderPreloader(folderid);
 
         setTimeout(function () {
-            $('#collapse_' + folderid).load('@Url.Action("GetChildren","Navigation")?parentFolderid=' + folderid, function () {
+            $('#collapse_' + folderid).load('@Url.Action("GetChildren","Navigation")?parentFolderid=' + folderid, function (response) {
+                if (response.length < 1)
+                    $('#collapse_' + folderid).html('<div class="text-center text-white">Папка пустая</div>');
             });
-        }, 300);
+            removeFolderPreloader(folderid);
+        }, 800);
         setNavEventListener();
     }
 

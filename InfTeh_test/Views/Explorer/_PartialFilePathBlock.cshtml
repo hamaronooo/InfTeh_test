@@ -1,0 +1,9 @@
+﻿ 
+@model List<InfTeh_test.Models.DataContext.Folder>
+<div>
+    <span>../</span>
+    @foreach (var folder in Model)
+    {
+        <span onclick="">@folder.displayname/</span>
+    }
+</div>

@@ -11,13 +11,13 @@
             <hr />
 
             <div class="justify-content-between col-12">
-                <input type="button" onclick="deleteFolderByMode(0)" value="Удалить файл" class="btn btn-danger col-4" />
+                <input type="button" onclick="deleteFile_@(Model.fileid)()" value="Удалить файл" class="btn btn-danger col-4" />
             </div>
         </div>
     </div>
 
     <script>
-        function deleteFolderByMode(mode) {
+        function deleteFile_@(Model.fileid)() {
             showPreloader();
             $.ajax({
                 url: "@Url.Action("DeleteFile", "File")",
@@ -29,6 +29,9 @@
                     $('#toastContainer').html(html);
                     loadChildrenByFolderID(@Model.folderid);
                     $('#ModalWindow').modal('hide');
+                    if (@Model.fileid === OpenedFileID) {
+                        $('#explorer_content_container').html('');
+                    }
                     hidePreloader();
                 }
             });
@@ -38,6 +41,6 @@
 else
 {
     <h5 class="col-12 text-danger">
-        Такая такой файл не найден.
+        Такой файл не найден.
     </h5>
 }

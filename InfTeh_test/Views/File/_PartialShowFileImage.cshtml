@@ -1,0 +1,67 @@
+﻿@model InfTeh_test.Models.File.FileEditModel
+
+<div class="col p-2">
+    <input type="button" value="Сохранить" onclick="SaveFileData()" class="btn btn-sm btn-outline-success" />
+    <a href="@Url.Action("DownloadFile", "File")?fileid=@Model.fileid"
+       class="btn btn-sm btn-outline-primary">Скачать</a>
+    <input type="button" value="Удалить"
+           data-toggle="modal"
+           data-target="#ModalWindow"
+           onclick="deleteFile(@Model.fileid)"
+           class="btn btn-sm btn-outline-danger"/>
+</div>
+
+<style>
+    #imagePreview {
+        height: 400px;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center
+    }
+</style>
+
+
+@Html.HiddenFor(m => m.fileid)
+<div class="col-12 input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Название</span>
+        </div>
+        @Html.TextBoxFor(model => model.displayname
+            , new
+            {
+                @class = "form-control"
+            })
+    </div>
+    <div class="col-12 input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Описание</span>
+        </div>
+        @Html.TextBoxFor(model => model.description
+            , new
+            {
+                @class = "form-control"
+            })
+    </div>
+
+<div id="imagePreview" style="background-image:url(data:image/jpeg;base64,@Convert.ToBase64String(Model.file_content) )"></div>
+
+<script>
+    function SaveFileData() {
+        showPreloader();
+        $.ajax({
+            url: "@Url.Action("SaveFileData", "File")",
+            method: "POST",
+            data: {
+                fileid: @Model.fileid,
+                fileName: $('#displayname').val(),
+                description: $('#description').val()
+            },
+            success: function (html) {
+                $('#toastContainer').html(html);
+                loadChildrenByFolderID(@Model.folderid);
+            }
+        }).always(function () {
+            hidePreloader();
+        });
+    }
+</script>

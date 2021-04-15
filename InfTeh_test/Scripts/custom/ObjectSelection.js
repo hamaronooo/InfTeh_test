@@ -34,8 +34,9 @@ function select_li(li) {
     $('[data-folder-id], [data-file-id]').removeClass("selectedElement");
 
     selectedElement = jq_li;
-
     selectedElement.addClass("selectedElement");
+
+    displayFilePath(data_folder_id);
 }
 
 function getParentFolderID() {
@@ -53,4 +54,8 @@ function getParentFolderID() {
     else {
         return null;
     }
+}
+
+function displayFilePath(currentFolderID) {
+    $('#explorer_header_container').load('/Explorer/_PartialFilePathBlock?currentFolderid=' + currentFolderID);
 }

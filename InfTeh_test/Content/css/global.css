@@ -117,6 +117,13 @@ li div:hover .hidden-control {
     visibility: visible;
 }
 
+.folder_preloader {
+    z-index: 999999;
+    position: absolute;
+    left: 10px;
+    transform: scale(0.4)
+}
+
 @media (min-width: 992px) {
     .sidenav {
         position: absolute !important;

@@ -142,6 +142,7 @@
     <Compile Include="Models\DataContext\File.cs" />
     <Compile Include="Models\DataContext\FileExtension.cs" />
     <Compile Include="Models\DataContext\Folder.cs" />
+    <Compile Include="Models\File\FileEditModel.cs" />
     <Compile Include="Models\NavigationModel.cs" />
     <Compile Include="Models\Toast\ToastModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -461,10 +462,12 @@
     <Content Include="Views\FileExtension\_PartialIconCreateForm.cshtml" />
     <Content Include="Views\File\_PartialDeleteFileForm.cshtml" />
     <Content Include="Views\File\_PartialShowFileData.cshtml" />
+    <Content Include="Views\File\_PartialShowFileImage.cshtml" />
+    <Content Include="Views\File\_PartialShowFileExtension.cshtml" />
+    <Content Include="Views\Explorer\_PartialFilePathBlock.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Explorer\" />
     <Folder Include="Views\Modal\" />
   </ItemGroup>
   <ItemGroup>

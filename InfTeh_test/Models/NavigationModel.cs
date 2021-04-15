@@ -10,6 +10,6 @@ namespace InfTeh_test.Models
     {
         public Folder ParentFolder { get; set; }
         public IQueryable<Folder> Folders { get; set; }
-        public IQueryable<File> Files { get; set; }
+        public IQueryable<DataContext.File> Files { get; set; }
     }
 }

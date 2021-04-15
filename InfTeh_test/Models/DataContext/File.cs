@@ -19,8 +19,8 @@ namespace InfTeh_test.Models.DataContext
             ErrorMessage = "Название файла должно быть от 1 до 200 символов")]
         public string displayname { get; set; }
 
-        [StringLength(1000, MinimumLength = 3,
-            ErrorMessage = "Описание файла должно быть от 3 до 1000 символов")]
+        [StringLength(100,
+            ErrorMessage = "Описание файла должно до 100 символов")]
         public string description { get; set; }
 
         [HiddenInput(DisplayValue = false)]
@@ -43,14 +43,9 @@ namespace InfTeh_test.Models.DataContext
 
         [NotMapped]
         public string IconFileName { get; set; } = "unknown.svg";
-
+        
         [NotMapped]
-        public string FileContentAsString {
-            get
-            {
-                return file_content != null ? Encoding.UTF8.GetString(file_content) : "";
-            }
-            set { }
-        }
+        public string FileContentAsString { get; set; }
+
     }
 }

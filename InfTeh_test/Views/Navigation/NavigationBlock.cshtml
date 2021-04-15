@@ -1,18 +1,80 @@
 ﻿@model InfTeh_test.Models.NavigationModel
 @if (Model.Files.Any() || Model.Folders.Any())
 {
-<script>
-    $(document).ready(function () {
-        $('ul li a').off('click').on('click', function (e) {
-            loadChildrenByElement(this);
+    <script>
+        $(document).ready(function () {
+            $('ul li a').off('click').on('click', function (e) {
+                loadChildrenByElement(this);
+            });
         });
-    });
-</script>
+    </script>
+    <script>
+        var OpenedFileID = null;
+
+        function deleteFolder(folderid) {
+            showPreloader();
+            $.ajax({
+                url: "@Url.Action("_PartialDeleteFolderForm", "Folder")",
+                data: {
+                    folderid: folderid
+                },
+                success: function (html) {
+                    $('#ModalBody').html(html);
+                }
+            }).always(function() {
+                hidePreloader();
+            });
+        }
+        function renameFolder(folderid) {
+            showPreloader();
+            $.ajax({
+                url: "@Url.Action("_PartialRenameFolderForm", "Folder")",
+                data: {
+                    folderid: folderid
+                },
+                success: function (html) {
+                    $('#ModalBody').html(html);
+                }
+            }).always(function () {
+                hidePreloader();
+            });
+        }
+        function deleteFile(fileid) {
+            showPreloader();
+        
+            $.ajax({
+                url: "@Url.Action("_PartialDeleteFileForm", "File")",
+                data: {
+                    fileid: fileid
+                },
+                success: function (html) {
+                    $('#ModalBody').html(html);
+                }
+            }).always(function () {
+                hidePreloader();
+            });
+        }
+        function showFileData(fileid) {
+            setPreloader($('#explorer_content_container'));
+            OpenedFileID = fileid;
+            $.ajax({
+                method: "POST",
+                url: "@Url.Action("ShowFileData", "File")",
+                data: {
+                    fileid: fileid
+                },
+                success: function (html) {
+                    $('#explorer_content_container').html(html);
+                }
+            });
+        }
+    </script>
 }
 @foreach (var folder in Model.Folders)
 {
     <li class="nav-item" data-folder-id="@folder.folderid">
-        <div id="folder-container-@folder.folderid" 
+        <div id="folder_preloader_@folder.folderid" class="folder_preloader"></div>
+        <div id="folder-container-@folder.folderid"
              data-folder-id="@folder.folderid"
              data-parent-folder-id="@folder.parent_folderid"
              style="position: relative;">
@@ -24,18 +86,18 @@
                data-target="#collapse_@folder.folderid"
                aria-controls="collapse_@folder.folderid"
                aria-expanded="false">📁 @folder.displayname</a>
-            <button class="btn-sm btn-warning hidden-control mr-5" 
+            <button class="btn-sm btn-warning hidden-control mr-5"
                     onclick="renameFolder('@folder.folderid')"
                     data-toggle="modal"
                     data-target="#ModalWindow">
                 <i class="fa fa-pencil-square" aria-hidden="true"></i>
             </button>
-            <button class="btn-sm btn-danger hidden-control" 
+            <button class="btn-sm btn-danger hidden-control"
                     onclick="deleteFolder('@folder.folderid')"
                     data-toggle="modal"
                     data-target="#ModalWindow">
                 <i class="fa fa-trash-o" aria-hidden="true"></i>
-            </button>  
+            </button>
         </div>
         @if (folder.parent_folderid == null)
         {
@@ -65,7 +127,7 @@
             </a>
             <button class="btn-sm btn-success hidden-control mr-5" 
                     onclick="showFileData(@file.fileid)">
-                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+               <i class="fa fa-eye" aria-hidden="true"></i>
             </button>  
             <button class="btn-sm btn-danger hidden-control" 
                     onclick="deleteFile('@file.fileid')"
@@ -76,59 +138,3 @@
         </div>
     </li>
 }
-
-<script>
-    function deleteFolder(folderid) {
-        showPreloader();
-        $.ajax({
-            url: "@Url.Action("_PartialDeleteFolderForm", "Folder")",
-            data: {
-                folderid: folderid
-            },
-            success: function (html) {
-                $('#ModalBody').html(html);
-                hidePreloader();
-            }
-        });
-    }
-    function renameFolder(folderid) {
-        showPreloader();
-        $.ajax({
-            url: "@Url.Action("_PartialRenameFolderForm", "Folder")",
-            data: {
-                folderid: folderid
-            },
-            success: function (html) {
-                $('#ModalBody').html(html);
-                hidePreloader();
-            }
-        });
-    }
-    function deleteFile(fileid) {
-        showPreloader();
-        $.ajax({
-            url: "@Url.Action("_PartialDeleteFileForm", "File")",
-            data: {
-                fileid: fileid
-            },
-            success: function (html) {
-                $('#ModalBody').html(html);
-                hidePreloader();
-            }
-        });
-    }
-    function showFileData(fileid) {
-        showPreloader();
-        $.ajax({
-            method: "POST",
-            url: "@Url.Action("_PartialShowFileData", "File")",
-            data: {
-                fileid: fileid
-            },
-            success: function (html) {
-                $('#explorer_content_container').html(html);
-                hidePreloader();
-            }
-        });
-    }
-</script>
