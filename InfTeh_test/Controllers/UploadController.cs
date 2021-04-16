@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration;
+using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -29,16 +31,22 @@ namespace InfTeh_test.Controllers
                 if (file != null)
                 {
                     string fileName = Path.GetFileNameWithoutExtension(file.FileName);
-                    string fileExt = Path.GetExtension(file.FileName)?.Remove(0,1);
+                    string fileExt = Path.GetExtension(file.FileName)?.Remove(0, 1);
 
-                    int? extensionid = db.FileExtensions.FirstOrDefault(m => m.displayname == fileExt)?.file_extensionid;
+                    int? extensionid = db.FileExtensions.FirstOrDefault(m => m.displayname == fileExt)
+                        ?.file_extensionid;
 
                     if (extensionid == null)
                     {
                         CreateExtension(fileExt, out int? extid);
                         extensionid = extid;
                     }
-                       
+
+                    if (CheckFileExist(fileName, fileExt, folderid))
+                    {
+                        fileName = fileName + $" ({DateTime.Now.ToString("dd-MM-yy HH:mm:ss")})";
+                    }
+
 
                     File dbFile = new File();
                     dbFile.folderid = folderid;
@@ -51,7 +59,7 @@ namespace InfTeh_test.Controllers
                     db.SaveChanges();
 
                     return RedirectToAction("Partial_SuccesUploadedToast", "Toast");
-               
+
                 }
             }
             return RedirectToAction("Partial_UnknownErrorToast", "Toast");
@@ -78,6 +86,14 @@ namespace InfTeh_test.Controllers
         }
 
         #region HelpMethods
+
+        private bool CheckFileExist(string filename, string ext, int? folderid)
+        {
+            return db.Files.Any(m=>m.displayname == filename 
+                                   && m.FileExtension.displayname == ext
+                                   && m.folderid == folderid);
+        }
+
         private void CreateExtension(string name, out int? extid)
         {
             // todo: try catch

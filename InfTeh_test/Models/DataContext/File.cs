@@ -15,12 +15,12 @@ namespace InfTeh_test.Models.DataContext
         public int fileid { get; set; }
 
         [Required(ErrorMessage = "Обязательно укажите название!")]
-        [StringLength(100, MinimumLength = 1,
+        [StringLength(200, MinimumLength = 1,
             ErrorMessage = "Название файла должно быть от 1 до 200 символов")]
         public string displayname { get; set; }
 
-        [StringLength(100,
-            ErrorMessage = "Описание файла должно до 100 символов")]
+        [StringLength(1000,
+            ErrorMessage = "Описание файла должно до 1000 символов")]
         public string description { get; set; }
 
         [HiddenInput(DisplayValue = false)]

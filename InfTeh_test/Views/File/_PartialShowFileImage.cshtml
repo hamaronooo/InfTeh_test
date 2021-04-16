@@ -13,7 +13,7 @@
 
 <style>
     #imagePreview {
-        height: 400px;
+        height:300px;
         background-repeat: no-repeat;
         background-size: contain;
         background-position: center
@@ -43,9 +43,14 @@
             })
     </div>
 
-<div id="imagePreview" style="background-image:url(data:image/jpeg;base64,@Convert.ToBase64String(Model.file_content) )"></div>
+<div id="imagePreview" class="ui-widget-content" style="background-image:url(data:image/jpeg;base64,@Convert.ToBase64String(Model.file_content) )"></div>
 
 <script>
+    $(document).ready(function() {
+        $("#imagePreview").resizable({
+            containment: "#explorer_content_container"
+        });
+    });
     function SaveFileData() {
         showPreloader();
         $.ajax({

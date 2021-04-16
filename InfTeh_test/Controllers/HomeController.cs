@@ -13,7 +13,7 @@ namespace InfTeh_test.Controllers
 
         public ActionResult Index()
         {
-            //return RedirectToAction("GetChildren", "Navigation");
+            //return RedirectToAction("GetNavigationBlock", "Navigation");
             return PartialView();
         }
     }

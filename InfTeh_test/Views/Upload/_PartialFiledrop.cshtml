@@ -1,13 +1,15 @@
 ﻿@model int?
 
 <div id="drop-area">
-    <form class="my-form">
-        <p>Для загрузки перетащите файл или нажмите на кнопку.</p>
+    <form class="my-form h-20">
+        <div class="row">
+            <div class="col-12 col-md-6 align-self-center justify-content-center"><p>Для загрузки перетащите</p></div>
+            <div class="col-12 col-md-6"><label class="btn btn-primary" for="fileElem">Или нажмите</label></div>
+        </div>
+        <progress class="col-12" id="progress-bar" max=100 value=0></progress>
         <input type="file" id="fileElem" multiple accept="image/*" onchange="handleFiles(this.files)">
-        <label class="button" for="fileElem">Select some files</label>
     </form>
-    <progress id="progress-bar" max=100 value=0></progress>
-    <div id="gallery" />
+    <div class="h-80" id="gallery" />
 </div>
 <style>
     .note {
@@ -17,47 +19,28 @@
         color: #333;
         text-align: justify;
     }
-
     #drop-area {
-        border: 2px dashed #ccc;
+        border: 2px dashed #007bff;
         border-radius: 20px;
-        width: 480px;
-        margin: 50px auto;
+        width: 100%;
+        height: 100%;
+        margin: 0px auto;
         padding: 20px;
+        transition: all .3s ease
     }
-
-        #drop-area.highlight {
-            border-color: purple;
-        }
-
-    .my-form {
-        margin-bottom: 10px;
+    #drop-area.highlight {
+            border-color: #002bff;
+            background: #badbff;
     }
-
     #gallery {
         margin-top: 10px;
     }
-
-        #gallery img {
+    #gallery img {
             width: 150px;
             margin-bottom: 10px;
             margin-right: 10px;
             vertical-align: middle;
-        }
-
-    .button {
-        display: inline-block;
-        padding: 10px;
-        background: #ccc;
-        cursor: pointer;
-        border-radius: 5px;
-        border: 1px solid #ccc;
     }
-
-        .button:hover {
-            background: #ddd;
-        }
-
     #fileElem {
         display: none;
     }
@@ -65,20 +48,19 @@
 
 <script>
     // ************************ Drag and drop ***************** //
-    let dropArea = document.getElementById("drop-area")
+    let dropArea = document.getElementById("drop-area");
 
         // Prevent default drag behaviors
-        ;['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-            dropArea.addEventListener(eventName, preventDefaults, false);
-            document.body.addEventListener(eventName, preventDefaults, false);
-        })
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, preventDefaults, false);
+        document.body.addEventListener(eventName, preventDefaults, false);
+    });
 
         // Highlight drop area when item is dragged over it
-        ;['dragenter', 'dragover'].forEach(eventName => {
+        ['dragenter', 'dragover'].forEach(eventName => {
             dropArea.addEventListener(eventName, highlight, false);
-        })
+        });
 
-        ;
     ['dragleave', 'drop'].forEach(eventName => {
         dropArea.addEventListener(eventName, unhighlight, false);
     });
@@ -96,7 +78,7 @@
     }
 
     function unhighlight(e) {
-        dropArea.classList.remove('active');
+        dropArea.classList.remove('highlight');
     }
 
     function handleDrop(e) {
@@ -128,6 +110,7 @@
         initializeProgress(files.length);
         files.forEach(uploadFile);
         files.forEach(previewFile);
+        setTimeout(loadChildrenByFolderID(@Model), 200);
     }
 
     function previewFile(file) {
@@ -153,14 +136,16 @@
         xhr.upload.addEventListener("progress",
             function(e) {
                 updateProgress(i, (e.loaded * 100.0 / e.total) || 100);
+
             });
 
         xhr.addEventListener('readystatechange',
             function(e) {
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     updateProgress(i, 100);
+                    $('#toastContainer').load('@Url.Action("Partial_SuccesUploadedToast","Toast")');
                 } else if (xhr.readyState == 4 && xhr.status != 200) {
-                    // Error. Inform the user
+                    $('#toastContainer').load('@Url.Action("Partial_UnknownErrorToast","Toast")');
                 }
             });
 

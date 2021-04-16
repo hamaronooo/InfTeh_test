@@ -29,7 +29,8 @@ namespace InfTeh_test
                         "~/Scripts/select2.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js"));
+                      "~/Scripts/popper.min.js",
+                      "~/Scripts/bootstrap.bundle.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/dropzone-js").Include(
                 "~/Scripts/jquery.filedrop.js"));
@@ -41,6 +42,7 @@ namespace InfTeh_test
                 "~/Content/bootstrap-grid.css",
                 "~/Content/bootstrap-reboot.css",
                 "~/Content/font-awesome.min.css",
+                "~/Content/themes/base/jquery-ui.css",
                 "~/Content/bootstrap.css.map"));
 
             bundles.Add(new StyleBundle("~/bundles/css/custom-css").Include(

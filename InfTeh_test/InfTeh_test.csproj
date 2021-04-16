@@ -465,6 +465,7 @@
     <Content Include="Views\File\_PartialShowFileImage.cshtml" />
     <Content Include="Views\File\_PartialShowFileExtension.cshtml" />
     <Content Include="Views\Explorer\_PartialFilePathBlock.cshtml" />
+    <Content Include="Views\Navigation\_PartialFolderInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

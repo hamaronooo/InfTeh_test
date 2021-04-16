@@ -2,13 +2,14 @@
 var selectedElement = null;
 
 function setNavEventListener() {
-    $("ul li div").off("click").on("click", function () {
+    $("ul li > div").off("click");
+    $("ul li > div").on("click", function () {
         select_li(this);
     });
 }
 
 function select_li(li) {
-
+    console.log('CALLER:  ' + select_li.caller);
     var data_folder_id = li.getAttribute('data-folder-id');
     var data_file_id = li.getAttribute('data-file-id');
 
@@ -21,22 +22,27 @@ function select_li(li) {
     else if (data_file_id != null) {
         console.log("file-container-" + data_file_id);
         jq_li = $('#file-container-' + data_file_id);
+    } else {
+        console.log('selected element: ' + selectedElement);
+
     }
-    console.log('selected element: ' + selectedElement);
+
 
     if (jq_li != null && jq_li.hasClass("selectedElement")) {
         console.log('has class');
         selectedElement.removeClass("selectedElement");
         selectedElement = null;
+        $('#explorer_header_container').html('');
         return;
     }
 
     $('[data-folder-id], [data-file-id]').removeClass("selectedElement");
 
     selectedElement = jq_li;
-    selectedElement.addClass("selectedElement");
+    if (jq_li != null)
+        selectedElement.addClass("selectedElement");
 
-    displayFilePath(data_folder_id);
+    displayFilePath(getParentFolderID());
 }
 
 function getParentFolderID() {

@@ -1,4 +1,75 @@
 ﻿@model InfTeh_test.Models.NavigationModel
+
+@foreach (var folder in Model.Folders)
+{
+    <li class="nav-item" data-folder-id="@folder.folderid">
+        <div id="folder-container-@folder.folderid"
+             data-folder-id="@folder.folderid"
+             data-parent-folder-id="@folder.parent_folderid"
+             style="position: relative; transition: all .3s ease">
+            <div>
+                <div id="folder_preloader_@folder.folderid" class="folder_preloader"></div>
+                <a class="nav-link nav-link-collapse"
+                   href="#"
+                   id="SubItems_@folder.folderid"
+                   data-folder-id="@folder.folderid"
+                   data-toggle="collapse"
+                   data-target="#collapse_@folder.folderid"
+                   aria-controls="collapse_@folder.folderid"
+                   aria-expanded="false">📁 @folder.displayname</a>
+            </div>
+            <button class="btn-sm btn-warning hidden-control mr-5"
+                    onclick="renameFolder('@folder.folderid')"
+                    data-toggle="modal"
+                    data-target="#ModalWindow">
+                <i class="fa fa-pencil-square" aria-hidden="true"></i>
+            </button>
+            <button class="btn-sm btn-danger hidden-control"
+                    onclick="deleteFolder('@folder.folderid')"
+                    data-toggle="modal"
+                    data-target="#ModalWindow">
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
+            </button>
+        </div>
+        @if (folder.parent_folderid == null)
+        {
+            <ul class="nav-second-level collapse"
+                id="collapse_@folder.folderid" data-parent="#navAccordion"></ul>
+        }
+        else
+        {
+            <ul class="nav-second-level collapse"
+                id="collapse_@folder.folderid" data-parent="#SubItems_@folder.parent_folderid"></ul>
+        }
+    </li>
+}
+@foreach (var file in Model.Files)
+{
+    <li class="nav-item" data-file-id="@file.fileid" title="@file.description">
+        <div id="file-container-@file.fileid"
+             class="nav-file text-white"
+             data-file-id="@file.fileid"
+             data-parent-folder-id="@file.folderid"
+             style="position: relative;transition: all .3s ease">
+            <div class="file-icon" style="background-image: url(/Content/FileIcons/@file.IconFileName)"></div>
+            <a href="#"> @(file.displayname).@(file.FileExtension?.displayname)</a>
+            <a class="btn-sm btn-primary hidden-control" style="right:100px"
+               href="@Url.Action("DownloadFile","File")?fileid=@file.fileid">
+                <i class="fa fa-download" aria-hidden="true"></i>
+            </a>
+            <button class="btn-sm btn-success hidden-control mr-5"
+                    onclick="showFileData(@file.fileid)">
+                <i class="fa fa-eye" aria-hidden="true"></i>
+            </button>
+            <button class="btn-sm btn-danger hidden-control"
+                    onclick="deleteFile('@file.fileid')"
+                    data-toggle="modal"
+                    data-target="#ModalWindow">
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
+            </button>
+        </div>
+    </li>
+}
 @if (Model.Files.Any() || Model.Folders.Any())
 {
     <script>
@@ -10,7 +81,6 @@
     </script>
     <script>
         var OpenedFileID = null;
-
         function deleteFolder(folderid) {
             showPreloader();
             $.ajax({
@@ -41,7 +111,7 @@
         }
         function deleteFile(fileid) {
             showPreloader();
-        
+
             $.ajax({
                 url: "@Url.Action("_PartialDeleteFileForm", "File")",
                 data: {
@@ -69,72 +139,4 @@
             });
         }
     </script>
-}
-@foreach (var folder in Model.Folders)
-{
-    <li class="nav-item" data-folder-id="@folder.folderid">
-        <div id="folder_preloader_@folder.folderid" class="folder_preloader"></div>
-        <div id="folder-container-@folder.folderid"
-             data-folder-id="@folder.folderid"
-             data-parent-folder-id="@folder.parent_folderid"
-             style="position: relative;">
-            <a class="nav-link nav-link-collapse"
-               href="#"
-               id="SubItems_@folder.folderid"
-               data-folder-id="@folder.folderid"
-               data-toggle="collapse"
-               data-target="#collapse_@folder.folderid"
-               aria-controls="collapse_@folder.folderid"
-               aria-expanded="false">📁 @folder.displayname</a>
-            <button class="btn-sm btn-warning hidden-control mr-5"
-                    onclick="renameFolder('@folder.folderid')"
-                    data-toggle="modal"
-                    data-target="#ModalWindow">
-                <i class="fa fa-pencil-square" aria-hidden="true"></i>
-            </button>
-            <button class="btn-sm btn-danger hidden-control"
-                    onclick="deleteFolder('@folder.folderid')"
-                    data-toggle="modal"
-                    data-target="#ModalWindow">
-                <i class="fa fa-trash-o" aria-hidden="true"></i>
-            </button>
-        </div>
-        @if (folder.parent_folderid == null)
-        {
-            <ul class="nav-second-level collapse"
-                id="collapse_@folder.folderid" data-parent="#navAccordion"></ul>
-        }
-        else
-        {
-            <ul class="nav-second-level collapse"
-                id="collapse_@folder.folderid" data-parent="#SubItems_@folder.parent_folderid"></ul>
-        }
-    </li>
-}
-@foreach (var file in Model.Files)
-{
-    <li class="nav-item" data-file-id="@file.fileid">
-        <div id="file-container-@file.fileid" 
-             class="nav-file text-white" 
-             data-file-id="@file.fileid"
-             data-parent-folder-id="@file.folderid"
-             style="position: relative;">
-            <div class="file-icon" style="background-image: url(/Content/FileIcons/@file.IconFileName)"></div>
-            <a href="#"> @(file.displayname).@(file.FileExtension?.displayname)</a>
-            <a class="btn-sm btn-primary hidden-control" style="right:100px" 
-               href="@Url.Action("DownloadFile","File")?fileid=@file.fileid">
-                <i class="fa fa-download" aria-hidden="true"></i>
-            </a>
-            <button class="btn-sm btn-success hidden-control mr-5" 
-                    onclick="showFileData(@file.fileid)">
-               <i class="fa fa-eye" aria-hidden="true"></i>
-            </button>  
-            <button class="btn-sm btn-danger hidden-control" 
-                    onclick="deleteFile('@file.fileid')"
-                    data-toggle="modal"
-                    data-target="#ModalWindow">
-                <i class="fa fa-trash-o" aria-hidden="true"></i>
-            </button>  
-        </div>
-    </li>
 }

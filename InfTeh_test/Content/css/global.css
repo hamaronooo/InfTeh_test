@@ -82,6 +82,9 @@
 a {
     color: wheat;
 }
+    a:hover {
+        color: orange;
+    }
 .head-controls a {
     color: orange;
 }
@@ -89,6 +92,8 @@ a {
 .selectedElement {
     background-color: #989898 !important;
     border-right: 2px solid orange;
+    padding: 5px 2px;
+    transition: all .3s ease;
 }
     .selectedElement > a {
         color: black !important;
@@ -96,9 +101,17 @@ a {
 
 #explorer_content_container {
     min-height: 700px;
+    color: black;
 }
 #explorer_header_container {
-    min-height: 50px;
+    min-height: 30px;
+}
+.file_path_link {
+    cursor: pointer
+}
+.file_path_link:hover {
+    color: #d2691e;
+    text-decoration: underline
 }
 
 .hidden-control {
@@ -123,6 +136,8 @@ li div:hover .hidden-control {
     left: 10px;
     transform: scale(0.4)
 }
+
+
 
 @media (min-width: 992px) {
     .sidenav {

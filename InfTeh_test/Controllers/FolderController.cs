@@ -18,7 +18,7 @@ namespace InfTeh_test.Controllers
         {
             return PartialView(parent_folder);
         }
-        
+
         public ActionResult _PartialDeleteFolderForm(int folderid)
         {
             var folder = db.Folders.FirstOrDefault(m => m.folderid == folderid);
@@ -34,8 +34,7 @@ namespace InfTeh_test.Controllers
         [HttpPost]
         public ActionResult CreateFolder(int? parent_folderid, string name)
         {
-          // todo: проверка на уникальность
-            if (!string.IsNullOrEmpty(name))
+            if (!string.IsNullOrWhiteSpace(name))
             {
                 Folder folder = new Folder();
                 folder.displayname = name;
@@ -43,21 +42,20 @@ namespace InfTeh_test.Controllers
 
                 if (!IsFolderUnique(folder))
                     return RedirectToAction("Partial_Toast", "Toast", FolderNotUnique());
-                
-                
+
                 db.Folders.Add(folder);
                 db.SaveChanges();
-                return RedirectToAction("Partial_CreatedToast","Toast");
+                return RedirectToAction("Partial_CreatedToast", "Toast");
             }
             else
             {
-                return RedirectToAction("Partial_UnknownErrorToast","Toast");
+                return RedirectToAction("Partial_Toast", "Toast", FolderNameNotCorrect());
             }
-                
+
         }
 
-        [HttpPost] 
-        public ActionResult DeleteFolder(int folderid) 
+        [HttpPost]
+        public ActionResult DeleteFolder(int folderid)
         {
             try
             {
@@ -67,8 +65,8 @@ namespace InfTeh_test.Controllers
                     return RedirectToAction("Partial_Toast", "Toast", NoSuchFolder());
 
                 db.Folders.Remove(folder);
-                db.SaveChanges(); 
-                
+                db.SaveChanges();
+
                 return RedirectToAction("Partial_DeletedToast", "Toast");
             }
             catch (Exception)
@@ -81,21 +79,7 @@ namespace InfTeh_test.Controllers
         public ActionResult RenameFolder(int folderid, string newName)
         {
             if (string.IsNullOrWhiteSpace(newName))
-            {
-                ToastModel validateToast = new ToastModel()
-                {
-                    IsAutohide = false,
-                    BgColor = Colors.danger,
-                    BodyTextColor = Colors.white,
-                    CloseLinkColor = Colors.dark,
-                    CloseText = "Я исправлюсь!",
-                    Head = "Ошибка!",
-                    HeadTextColor = Colors.white,
-                    HeadColor = Colors.danger,
-                    Message = "Имя папки не должно быть пустым!"
-                };
-                return RedirectToAction("Partial_Toast", "Toast", validateToast);
-            }
+                return RedirectToAction("Partial_Toast", "Toast", FolderNameNotCorrect());
 
             var folder = db.Folders.FirstOrDefault(m => m.folderid == folderid);
 
@@ -105,7 +89,7 @@ namespace InfTeh_test.Controllers
             if (!IsFolderUnique(folder))
                 return RedirectToAction("Partial_Toast", "Toast", FolderNotUnique());
 
-            if(newName == folder.displayname)
+            if (newName == folder.displayname)
                 return RedirectToAction("Partial_UpdatedToast", "Toast");
 
             folder.displayname = newName;
@@ -113,6 +97,7 @@ namespace InfTeh_test.Controllers
 
             return RedirectToAction("Partial_UpdatedToast", "Toast");
         }
+
 
         #region HelpMethods
         /// <summary>
@@ -156,6 +141,22 @@ namespace InfTeh_test.Controllers
                 HeadTextColor = Colors.white,
                 HeadColor = Colors.danger,
                 Message = "Папка с таким именем уже существует!"
+            };
+        }
+
+        private ToastModel FolderNameNotCorrect()
+        {
+            return new ToastModel()
+            {
+                IsAutohide = false,
+                BgColor = Colors.warning,
+                BodyTextColor = Colors.dark,
+                CloseLinkColor = Colors.dark,
+                CloseText = "Я сожалею!",
+                Head = "Ошибка!",
+                HeadTextColor = Colors.dark,
+                HeadColor = Colors.warning,
+                Message = "Неккоректное имя для папки."
             };
         }
         #endregion

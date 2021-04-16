@@ -64,22 +64,35 @@ namespace InfTeh_test.Controllers
         {
             try
             {
-                var file = db.Files.Include(m=>m.FileExtension).FirstOrDefault(m => m.fileid == fileid);
 
-                if (file == null)
+                if (!db.Files.Any(m=>m.fileid == fileid))
                     return RedirectToAction("Partial_Toast", "Toast", NoSuchFile());
 
-                file.FileContentAsString = file.file_content != null ? Encoding.UTF8.GetString(file.file_content) : "";
+                string fileExt = db.Files.Include(m=>m.FileExtension).FirstOrDefault(m => m.fileid == fileid)?.FileExtension.displayname;
 
-                FileEditModel fileEditModel = new FileEditModel(file);
+                if (ImageFileExtensions.Any(fileExt.Contains))
+                {
+                    var file = db.Files.Include(m => m.FileExtension).FirstOrDefault(m => m.fileid == fileid);
+                    return PartialView("_PartialShowFileImage", new FileEditModel(file));
+                }
 
-                if (ImageFileExtensions.Any(file.FileExtension.displayname.Contains))
-                    return PartialView("_PartialShowFileImage", fileEditModel);
-                if (TextFileExtensions.Any(file.FileExtension.displayname.Contains))
-                    return PartialView("_PartialShowFileData", fileEditModel);
-               
-                
-                return PartialView("_PartialShowFileExtension", fileEditModel);
+                if (TextFileExtensions.Any(fileExt.Contains))
+                {
+                    var file = db.Files.Include(m=>m.FileExtension).FirstOrDefault(m => m.fileid == fileid);
+                    file.FileContentAsString = file.file_content != null ? Encoding.UTF8.GetString(file.file_content) : "";
+                    return PartialView("_PartialShowFileData", new FileEditModel(file));
+                }
+
+                // загрузка данных файла без контента файла
+                File fileWithoutData = db.Files.AsEnumerable().Where(m => m.fileid == fileid).Select(m => new File
+                {
+                    fileid = m.fileid,
+                    FileExtension = m.FileExtension,
+                    description = m.description,
+                    displayname = m.displayname
+                }).FirstOrDefault();
+
+                return PartialView("_PartialShowFileExtension", new FileEditModel(fileWithoutData));
             }
             catch (Exception ex)
             {
@@ -113,63 +126,27 @@ namespace InfTeh_test.Controllers
                 return RedirectToAction("Partial_UnknownErrorToast", "Toast");
             }
         }
-//        try
-//        {
-//            if (!ModelState.IsValid)
-//            {
-//                string allErrors = string.Join("`", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
-//                return RedirectToAction("Partial_ToastValidation", "Toast", new { allErrors = allErrors
-//                });
-//            }
 
-//            var dbFile = db.Files.Include(m => m.FileExtension)
-//                .FirstOrDefault(m => m.fileid == fileEditModel.fileid);
-
-//            if (dbFile != null && TextFileExtensions.Any(dbFile.FileExtension.displayname.Contains))
-//            {
-//                dbFile.file_content = Encoding.ASCII.GetBytes(fileEditModel.FileContentAsString);
-//            }
-
-//            dbFile.displayname = fileEditModel.displayname;
-//            dbFile.description = fileEditModel.description;
-
-////db.Entry(file).State = EntityState.Modified;
-//            db.SaveChanges();
-
-//            return RedirectToAction("Partial_UpdatedToast", "Toast");
-//        }
-//        catch (Exception ex)
-//        {
-//            //foreach (var entityValidationErrors in ex.EntityValidationErrors)
-//            //{
-//            //    foreach (var validationError in entityValidationErrors.ValidationErrors)
-//            //    {
-//            //        erre = "Property: " + validationError.PropertyName + " Error: " +
-//            //                       validationError.ErrorMessage;
-//            //    }
-//            //}
-//            return RedirectToAction("Partial_UnknownErrorToast", "Toast");
-//        }
-#region HelpMethods
-private ToastModel NoSuchFile()
-        {
-            return new ToastModel()
-            {
-                IsAutohide = false,
-                BgColor = Colors.danger,
-                BodyTextColor = Colors.white,
-                CloseLinkColor = Colors.dark,
-                CloseText = "Я исправлюсь!",
-                Head = "Ошибка!",
-                HeadTextColor = Colors.white,
-                HeadColor = Colors.danger,
-                Message = "Данный файл не найден, возможно он уже удален!"
-            };
-        }
+        #region HelpMethods
+        private ToastModel NoSuchFile()
+                {
+                    return new ToastModel()
+                    {
+                        IsAutohide = false,
+                        BgColor = Colors.danger,
+                        BodyTextColor = Colors.white,
+                        CloseLinkColor = Colors.dark,
+                        CloseText = "Я исправлюсь!",
+                        Head = "Ошибка!",
+                        HeadTextColor = Colors.white,
+                        HeadColor = Colors.danger,
+                        Message = "Данный файл не найден, возможно он уже удален!"
+                    };
+                }
 
         public static string[] ImageFileExtensions = new string[]
         {
-            "img", "svg", "jpg", "jpeg", "png", "gif"
+            "img", "svg", "jpg", "jpeg", "png", "gif", "webp"
         };
 
         public static string[] TextFileExtensions = new string[]

@@ -41,8 +41,10 @@
             @class = "form-control"
         })
 </div>
-
-<div id="extPreview" style="background-image: url(/Content/FileIcons/@Model.FileExtension.icon_filename) ">
+@{
+    string iconFileName = Model.FileExtension.icon_filename ?? "unknown.svg";
+}
+<div id="extPreview" style="background-image: url(/Content/FileIcons/@(iconFileName)) ">
 
 </div>
 
