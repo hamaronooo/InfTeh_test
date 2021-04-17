@@ -69,7 +69,7 @@ namespace InfTeh_test.Controllers
                 if (!db.Files.Any(m=>m.fileid == fileid))
                     return RedirectToAction("Partial_Toast", "Toast", NoSuchFile());
 
-                string fileExt = db.Files.Include(m=>m.FileExtension).FirstOrDefault(m => m.fileid == fileid)?.FileExtension.displayname;
+                string fileExt = db.Files.Include(m=>m.FileExtension).FirstOrDefault(m => m.fileid == fileid)?.FileExtension?.displayname;
 
                 if (ImageFileExtensions.Any(fileExt.Contains))
                 {
@@ -92,6 +92,14 @@ namespace InfTeh_test.Controllers
                     description = m.description,
                     displayname = m.displayname
                 }).FirstOrDefault();
+
+                string extName = fileWithoutData.FileExtension?.icon_filename ?? fileWithoutData.FileExtension.displayname + ".svg";
+                string relativePath = "/Content/FileIcons/" + extName;
+                string fullpath = HttpContext.Server.MapPath(relativePath);
+
+                if (System.IO.File.Exists(fullpath))
+                    fileWithoutData.IconFileName = extName;
+                else fileWithoutData.IconFileName = "unknown.svg";
 
                 return PartialView("_PartialShowFileExtension", new FileEditModel(fileWithoutData));
             }
@@ -150,7 +158,7 @@ namespace InfTeh_test.Controllers
 
         public static string[] TextFileExtensions = new string[]
         {
-            "txt", "css", "js", "cs", "cshtml", "html", "php", "docx", "doc", "xml", "json", "config", "cfg", "sql", "bat"
+            "txt", "css", "js", "cs", "cshtml", "html", "php", "xml", "json", "config", "cfg", "sql", "bat"
         };
         private ToastModel InvalidFileName()
         {

@@ -65,7 +65,19 @@
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: #343a40;">
             <a class="navbar-brand" href="#">Explorer</a>
             <div style="min-width: 400px !important">
-                @Html.Action("_PartialSearchForm", "Explorer")
+                <div class="head-controls d-none d-md-flex">
+                    <button onclick="createFolderForm()"
+                            class="btn btn-sm btn-primary mr-2">
+                        Создать папку
+                    </button>
+                    <button class="btn btn-sm btn-primary mr-2"
+                            onclick="loadIconCreateForm()"
+                            data-toggle="modal"
+                            data-target="#ModalWindow">
+                        Добавить иконку расширения
+                    </button>
+                    <input type="button" value="Информация проекта" onclick="showProjectInfo()" class="btn btn-sm btn-outline-info" />
+                </div>
             </div>
             <button class="navbar-toggler"
                     type="button"
@@ -81,51 +93,8 @@
                 <ul id="navAccordion" class="navbar-nav mr-auto sidenav" style="overflow-x: auto;"></ul>
             </div>
 
-            <div class="head-controls d-none d-md-flex">
-                <button onclick="createFolderForm()"
-                        class="btn btn-sm btn-primary mr-2">
-                    Создать папку
-                </button>
-                <button class="btn btn-sm  btn-primary"
-                        onclick="loadIconCreateForm()"
-                        data-toggle="modal"
-                        data-target="#ModalWindow">
-                    Добавить иконку расширения
-                </button>
+            <div style="min-width: 500px;">
+                @Html.Action("_PartialSearchForm", "Explorer")
             </div>
         </nav>
     </div>
-
-<script>
-    function createFolderForm() {
-        $('#createFolderForm').remove();
-        $.ajax({
-            type: "GET",
-            url: "@Url.Action("_PartialCreateFolderForm", "Folder")",
-            data: {
-                parent_folder: getParentFolderID()
-            },
-            success: function (html) {
-                if (selectedElement != null) {
-                    selectedElement.next().prepend(html);
-                }
-                else {
-                    $('#navAccordion').prepend('<li>'+html+'</li>');
-                }
-            }
-        });
-    }
-
-    function loadIconCreateForm() {
-        showPreloader();
-        $.ajax({
-            type: "GET",
-            url: "@Url.Action("_PartialIconCreateForm", "FileExtension")",
-            success: function (html) {
-                $('#ModalBody').html(html);
-            }
-        }).always(function() {
-            hidePreloader();
-        });
-    }
-</script>

@@ -15,6 +15,7 @@ namespace InfTeh_test.Classes
             List<File> result = new List<File>();
             using (DataContext db = new DataContext())
             {
+                
                 result = db.Files
                     .Where(m => m.folderid == folderid)
                     .Include(m => m.FileExtension)
@@ -39,11 +40,9 @@ namespace InfTeh_test.Classes
 
             foreach (File file in result)
             {
-                string extName = file.FileExtension?.icon_filename ?? file.FileExtension.displayname + ".svg";
+                string extName = file.FileExtension?.icon_filename ?? file.FileExtension?.displayname + ".svg";
                 string relativePath = "/Content/FileIcons/" + extName;
                 string fullpath = HttpContext.Current.Server.MapPath(relativePath);
-
-                bool a = System.IO.File.Exists(fullpath);
 
                 if (System.IO.File.Exists(fullpath))
                     file.IconFileName = extName;
@@ -86,8 +85,6 @@ namespace InfTeh_test.Classes
                 string extName = file.FileExtension?.icon_filename ?? file.FileExtension.displayname + ".svg";
                 string relativePath = "/Content/FileIcons/" + extName;
                 string fullpath = HttpContext.Current.Server.MapPath(relativePath);
-
-                bool a = System.IO.File.Exists(fullpath);
 
                 if (System.IO.File.Exists(fullpath))
                     file.IconFileName = extName;

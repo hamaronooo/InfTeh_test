@@ -74,3 +74,36 @@ function showFolderContent(folderid) {
         }
     });
 }
+function createFolderForm() {
+    $('#createFolderForm').remove();
+    $.ajax({
+        type: "GET",
+        url: '/Folder/_PartialCreateFolderForm',
+        data: {
+            parent_folder: getParentFolderID()
+        },
+        success: function (html) {
+            if (selectedElement != null) {
+                if (selectedElement.attr('data-file-id') != null) 
+                    $('#navAccordion').prepend('<li>' + html + '</li>');
+                selectedElement.next().prepend(html);
+            }
+            else {
+                $('#navAccordion').prepend('<li>' + html + '</li>');
+            }
+        }
+    });
+}
+
+function loadIconCreateForm() {
+    showPreloader();
+    $.ajax({
+        type: "GET",
+        url: '/FileExtension/_PartialIconCreateForm',
+        success: function (html) {
+            $('#ModalBody').html(html);
+        }
+    }).always(function () {
+        hidePreloader();
+    });
+}

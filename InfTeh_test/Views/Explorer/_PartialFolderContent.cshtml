@@ -48,7 +48,6 @@
     <div id="file-container-@file.fileid"
          onclick="showFileData(@file.fileid)"
          title="@file.description"
-         data-toggle="tooltip"
          data-file-id="@file.fileid"
          data-parent-folder-id="@file.folderid"
          class="nav-file text-white"
@@ -64,7 +63,6 @@
             $('ul li a').off('click').on('click', function (e) {
                 loadChildrenByElement(this);
             });
-            $('[data-toggle="tooltip"],a[data-toggle]').tooltip();
         });
     </script>
 }

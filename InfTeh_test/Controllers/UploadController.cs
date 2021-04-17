@@ -6,6 +6,7 @@ using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
 using System.Security.Policy;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using InfTeh_test.Classes;
@@ -41,16 +42,9 @@ namespace InfTeh_test.Controllers
                 {
                     string fileName = Path.GetFileNameWithoutExtension(file.FileName);
                     string fileExt = Path.GetExtension(file.FileName)?.Remove(0, 1);
-
-                    int? extensionid = db.FileExtensions.FirstOrDefault(m => m.displayname == fileExt)
-                        ?.file_extensionid;
-
-                    if (extensionid == null)
-                    {
-                            CreateExtension(fileExt, out int? extid);
-                            extensionid = extid;
-                    }
-
+                    
+                    int? extensionid = GetExtensionId(fileExt);
+                    
                     if (CheckFileExist(fileName, fileExt, folderid))
                     {
                         fileName = fileName + $" ({DateTime.Now.ToString("dd-MM-yy HH:mm:ss")})";
@@ -64,12 +58,9 @@ namespace InfTeh_test.Controllers
                     dbFile.description = description;
 
                     db.Files.Add(dbFile);
-                    db.SaveChanges();
-
-                    return RedirectToAction("Partial_SuccesUploadedToast", "Toast");
-
                 }
             }
+            db.SaveChanges();
             return RedirectToAction("Partial_UnknownErrorToast", "Toast");
         }
 
@@ -110,21 +101,25 @@ namespace InfTeh_test.Controllers
                                    && m.folderid == folderid);
         }
 
-        private void CreateExtension(string name, out int? extid)
+        private static object locker = new object();
+        private int? GetExtensionId(string name)
         {
-            //if (db.FileExtensions.Any(m => m.displayname == name))
-            //{
-            //    extid = db.FileExtensions.FirstOrDefault(m => m.displayname == name)?.file_extensionid;
-            //    return;
-            //}
-
-            FileExtension fileExtension = new FileExtension()
+            int? result = null;
+            lock (locker)
             {
-                displayname = name
-            };
-            db.FileExtensions.Add(fileExtension);
-            extid = fileExtension.file_extensionid;
-            db.SaveChanges();
+                var extItem = db.FileExtensions.FirstOrDefault(m => m.displayname == name);
+
+                if (extItem != null) return extItem.file_extensionid;
+
+                var fileExtension = new FileExtension()
+                {
+                    displayname = name
+                };
+                db.FileExtensions.Add(fileExtension);
+                db.SaveChanges();
+                result = fileExtension.file_extensionid;
+            }
+            return result;
         }
 
         private byte[] GetFileBytes(HttpPostedFileBase file)

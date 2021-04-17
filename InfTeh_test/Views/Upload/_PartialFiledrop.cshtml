@@ -12,14 +12,19 @@
                 </div>
             </div>
             <div class="col-4">
-                <input type="checkbox"
-                       data-toggle="toggle"
-                       data-on="Файл"
-                       data-off="Иконка"
-                       data-onstyle="primary"
-                       data-offstyle="light"
-                       data-size="sm"
-                       id="uploadMode" checked="checked">
+                <div class="row">
+                    <div class="col-12 text-primary">Вид загрузки</div>
+                    <div class="col-12">
+                        <input type="checkbox"
+                               data-toggle="toggle"
+                               data-on="Файл"
+                               data-off="Иконка"
+                               data-onstyle="primary"
+                               data-offstyle="light"
+                               data-size="sm"
+                               id="uploadMode" checked="checked">
+                    </div>
+                </div>
             </div>
         </div>
         <progress class="col-12" id="progress-bar" max=100 value=0></progress>
@@ -196,5 +201,15 @@
         formData.append('folderid', @folderid);
         formData.append('files', file);
         xhr.send(formData);
+       clearUploadedFilesPreview();
+    }
+
+    function clearUploadedFilesPreview() {
+        setTimeout(function () {
+            $('#gallery img').hide('ease');
+        }, 5000);
+        setTimeout(function () {
+            $('#gallery').html('');
+        }, 6000);
     }
 </script>

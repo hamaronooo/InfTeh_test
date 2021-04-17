@@ -67,7 +67,9 @@
             $('ul li a').off('click').on('click', function (e) {
                 loadChildrenByElement(this);
             });
-            $('[data-toggle="tooltip"],a[data-toggle]').tooltip();
+            $('[data-toggle="tooltip"],a[data-toggle]').tooltip({
+                trigger: 'hover'
+            });
         });
     </script>
 }

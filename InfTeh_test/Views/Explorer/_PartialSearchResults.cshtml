@@ -36,7 +36,9 @@ else
 
 <script>
     $(document).ready(function () {
-        $('[data-toggle="tooltip"],a[data-toggle]').tooltip();
+        $('[data-toggle="tooltip"],a[data-toggle]').tooltip({
+            trigger: 'hover'
+        });
         $('#explorer_content_container .searchResult').on('click',
             function() {
                 showFileData(this.getAttribute('data-file-id'));

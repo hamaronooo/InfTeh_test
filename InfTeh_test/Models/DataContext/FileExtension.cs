@@ -24,7 +24,11 @@ namespace InfTeh_test.Models.DataContext
         public string icon_filename { get; set; }
 
         //
+        
+        
+
         [NotMapped]
         public List<string> IconsFilesNamesList;
+
     }
 }

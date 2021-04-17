@@ -19,6 +19,7 @@ namespace InfTeh_test.Models.File
             file_content = file.file_content;
             FileExtension = file.FileExtension;
             Folder = file.Folder;
+            IconFileName = file.IconFileName;
             FileContentAsString = file.FileContentAsString;
         }
     }
