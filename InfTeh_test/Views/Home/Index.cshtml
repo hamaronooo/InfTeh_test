@@ -7,11 +7,13 @@
 <div class="mx-4 p-2">
     <div id="explorer_wrapper">
         <div class="row bg-light border rounded-top mb-3" id="explorer_header_container">
-
+            <div class="col-8" id="explorer_header_path"></div>
+            <div class="col-4 text-right pr-0">
+                <input type="button" value="Информация проекта" onclick="showProjectInfo()" class="btn btn-sm btn-outline-info" />
+            </div>
         </div>
         <div class="row rounded-bottom p-0">
             <div class="col-12 col-md-8 p-0 order-sm-last order-md-first" id="explorer_content_container">
-                <input type="button" value="Информация проекта" onclick="showProjectInfo()" class="btn btn-outline-primary"/>
             </div>
             <div class="col-12 col-md-4 order-sm-first order-md-last" id="explorer_filedrop_container">
                 @Html.Action("_PartialFiledrop", "Upload", new{ mode = 1 })

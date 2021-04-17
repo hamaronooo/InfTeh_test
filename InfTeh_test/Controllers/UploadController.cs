@@ -47,11 +47,8 @@ namespace InfTeh_test.Controllers
 
                     if (extensionid == null)
                     {
-                    
                             CreateExtension(fileExt, out int? extid);
                             extensionid = extid;
-                       
-                
                     }
 
                     if (CheckFileExist(fileName, fileExt, folderid))
@@ -115,13 +112,19 @@ namespace InfTeh_test.Controllers
 
         private void CreateExtension(string name, out int? extid)
         {
+            //if (db.FileExtensions.Any(m => m.displayname == name))
+            //{
+            //    extid = db.FileExtensions.FirstOrDefault(m => m.displayname == name)?.file_extensionid;
+            //    return;
+            //}
+
             FileExtension fileExtension = new FileExtension()
             {
                 displayname = name
             };
             db.FileExtensions.Add(fileExtension);
-            db.SaveChanges();
             extid = fileExtension.file_extensionid;
+            db.SaveChanges();
         }
 
         private byte[] GetFileBytes(HttpPostedFileBase file)

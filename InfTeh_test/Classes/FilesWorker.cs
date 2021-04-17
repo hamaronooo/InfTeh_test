@@ -37,6 +37,19 @@ namespace InfTeh_test.Classes
                     }).ToList();
             }
 
+            foreach (File file in result)
+            {
+                string extName = file.FileExtension?.icon_filename ?? file.FileExtension.displayname + ".svg";
+                string relativePath = "/Content/FileIcons/" + extName;
+                string fullpath = HttpContext.Current.Server.MapPath(relativePath);
+
+                bool a = System.IO.File.Exists(fullpath);
+
+                if (System.IO.File.Exists(fullpath))
+                    file.IconFileName = extName;
+                else file.IconFileName = "unknown.svg";
+            }
+
             return result;
         }
 
@@ -66,6 +79,19 @@ namespace InfTeh_test.Classes
                         folderid = x.folderid,
                         FileExtension = x.FileExtension
                     }).ToList();
+            }
+
+            foreach (File file in result)
+            {
+                string extName = file.FileExtension?.icon_filename ?? file.FileExtension.displayname + ".svg";
+                string relativePath = "/Content/FileIcons/" + extName;
+                string fullpath = HttpContext.Current.Server.MapPath(relativePath);
+
+                bool a = System.IO.File.Exists(fullpath);
+
+                if (System.IO.File.Exists(fullpath))
+                    file.IconFileName = extName;
+                else file.IconFileName = "unknown.svg";
             }
 
             return result;

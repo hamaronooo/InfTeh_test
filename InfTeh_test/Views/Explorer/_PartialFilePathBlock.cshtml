@@ -1,18 +1,10 @@
 ﻿
 @model List<InfTeh_test.Models.DataContext.Folder>
 
-<div class="pl-2 text-muted">
-    <span>/ </span>
+<div class="pl-2 text-muted justify-content-center h-100">
+    <span>путь: / </span>
     @foreach (var folder in Model)
     {
-        <span class="file_path_link" onclick="getFolderContent(@folder.folderid)">@folder.displayname</span><span> /</span>
+        <span class="file_path_link" onclick="showFolderContent(@folder.folderid)">@folder.displayname</span><span> /</span>
     }
 </div>
-
-
-<script>
-    function getFolderContent(folderid) {
-        setPreloader($('#explorer_content_container'));
-        $('#explorer_content_container').load('@Url.Action("_PartialFolderInfo", "Navigation")?parentFolderid='+folderid);
-    }
-</script>

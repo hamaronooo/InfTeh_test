@@ -253,6 +253,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\custom\bootstrap4-toggle.min.js" />
+    <Content Include="Scripts\custom\File&amp;FolderWorker.js" />
     <Content Include="Scripts\custom\ObjectSelection.js" />
     <Content Include="Scripts\custom\Preloader.js" />
     <Content Include="Scripts\custom\ContentByCookie.js" />

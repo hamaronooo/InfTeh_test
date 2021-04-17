@@ -19,7 +19,7 @@
     foreach (var file in Model)
     {
         <div data-file-id="@file.fileid" class="row p-2 searchResult">
-            <div class="fileIcon" style="background:url(/Content/FileIcons/@(file.FileExtension.icon_filename))"></div>
+            <div class="fileIcon" style="background:url(/Content/FileIcons/@(file.IconFileName))"></div>
             <div title="@file.description"
                  data-toggle="tooltip" 
                  data-placement="right"

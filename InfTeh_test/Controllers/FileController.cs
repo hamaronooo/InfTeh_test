@@ -112,11 +112,6 @@ namespace InfTeh_test.Controllers
                 var dbFile = db.Files.Include(m=>m.FileExtension)
                     .FirstOrDefault(m => m.fileid == fileid);
 
-                if (dbFile != null && TextFileExtensions.Any(dbFile.FileExtension.displayname.Contains))
-                {
-                    dbFile.file_content = Encoding.ASCII.GetBytes(content);
-                }
-
                 dbFile.displayname = fileName;
                 dbFile.description = description;
 
@@ -155,7 +150,7 @@ namespace InfTeh_test.Controllers
 
         public static string[] TextFileExtensions = new string[]
         {
-            "txt", "css", "js"
+            "txt", "css", "js", "cs", "cshtml", "html", "php", "docx", "doc", "xml", "json", "config", "cfg", "sql", "bat"
         };
         private ToastModel InvalidFileName()
         {

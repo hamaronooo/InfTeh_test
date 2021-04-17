@@ -39,8 +39,20 @@ namespace InfTeh_test.Controllers
             return PartialView("_PartialSearchResults", new FilesWorker().GetFilesByDisplaynameOrExt(searchInput.Trim()));
         }
 
-        #region HelpMethods
+        [HttpPost]
+        public ActionResult _PartialFolderContent(int folderid)
+        {
+            NavigationModel model = new NavigationModel();
 
+            model.ParentFolder = db.Folders.FirstOrDefault(m => m.folderid == folderid);
+            model.Folders = db.Folders.Where(m => m.parent_folderid == folderid);
+
+            model.Files = new FilesWorker().GetFilesByFolderID(folderid);
+
+            return PartialView("_PartialFolderContent", model);
+        }
+
+        #region HelpMethods
         private List<Folder> GetFoldersStructure(List<Folder> folders, Folder currentFolder)
         {
             if(currentFolder.parent_folderid == null)
@@ -51,42 +63,6 @@ namespace InfTeh_test.Controllers
                 folders.Insert(0,offset);
             return GetFoldersStructure(folders, offset);
         }
-
-        public ActionResult _PartialFolderContent(int folderid)
-        {
-            NavigationModel model = new NavigationModel();
-
-            if (folderid != null)
-            {
-                model.ParentFolder = db.Folders.FirstOrDefault(m => m.folderid == folderid);
-                model.Folders = db.Folders.Where(m => m.parent_folderid == folderid);
-            }
-            else
-            {
-                model.ParentFolder = new Folder() { folderid = 0 };
-                model.Folders = db.Folders.Where(m => m.parent_folderid == null);
-            }
-
-            model.Files = new FilesWorker().GetFilesByFolderID(folderid);
-
-            foreach (File file in model.Files)
-            {
-                string extName = file.FileExtension?.icon_filename ?? file.FileExtension.displayname + ".svg";
-                string relativePath = "/Content/FileIcons/" + extName;
-                string fullpath = HttpContext.Server.MapPath(relativePath);
-
-                bool a = System.IO.File.Exists(fullpath);
-
-                if (System.IO.File.Exists(fullpath))
-                    file.IconFileName = extName;
-                else file.IconFileName = "unknown.svg";
-            }
-
-            return PartialView("_PartialFolderContent", model);
-        }
-
-
-
         #endregion
     }
 }

@@ -48,13 +48,11 @@
 
 .nav-link-collapse:after {
     float: right;
-    content: '';
     font-family: 'FontAwesome';
 }
 
 .nav-link-show:after {
     float: right;
-    content: '';
     font-family: 'FontAwesome';
 }
 
@@ -69,6 +67,11 @@
 .nav-file {
     margin: 10px;
 }
+
+ul {
+    list-style-type: none !important;
+}
+
 .file-icon {
     height: 25px;
     width: 25px;
@@ -102,6 +105,9 @@ a {
 #explorer_content_container {
     min-height: 700px;
     color: black;
+}
+#explorer_content_container a,span,div {
+    color: #00000099;
 }
 #explorer_header_container {
     min-height: 30px;

@@ -1,2 +1,70 @@
 ﻿@model InfTeh_test.Models.NavigationModel
 
+@foreach (var folder in Model.Folders)
+{
+    <div id="folder-container-@folder.folderid"
+             data-folder-id="@folder.folderid"
+             data-parent-folder-id="@folder.parent_folderid"
+             onclick="showFolderContent(@folder.folderid)"
+             style="position: relative; transition: all .3s ease">
+            <div>
+                <div id="folder_preloader_@folder.folderid" class="folder_preloader"></div>
+                <a class="nav-link nav-link-collapse"
+                   href="#"
+                   id="SubItems_@folder.folderid"
+                   data-folder-id="@folder.folderid"
+                   data-toggle="collapse"
+                   data-target="#collapse_@folder.folderid"
+                   aria-controls="collapse_@folder.folderid"
+                   aria-expanded="false">📁 @folder.displayname</a>
+            </div>
+            <button class="btn-sm btn-warning hidden-control mr-5"
+                    onclick="renameFolder('@folder.folderid')"
+                    data-toggle="modal"
+                    data-target="#ModalWindow">
+                <i class="fa fa-pencil-square" aria-hidden="true"></i>
+            </button>
+            <button class="btn-sm btn-danger hidden-control"
+                    onclick="deleteFolder('@folder.folderid')"
+                    data-toggle="modal"
+                    data-target="#ModalWindow">
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
+            </button>
+        </div>
+        if (folder.parent_folderid == null)
+        {
+            <ul class="nav-second-level collapse"
+                id="collapse_@folder.folderid" data-parent="#navAccordion"></ul>
+        }
+        else
+        {
+            <ul class="nav-second-level collapse"
+                id="collapse_@folder.folderid" data-parent="#SubItems_@folder.parent_folderid"></ul>
+        }
+   
+}
+@foreach (var file in Model.Files)
+{
+    <div id="file-container-@file.fileid"
+         onclick="showFileData(@file.fileid)"
+         title="@file.description"
+         data-toggle="tooltip"
+         data-file-id="@file.fileid"
+         data-parent-folder-id="@file.folderid"
+         class="nav-file text-white"
+         style="position: relative;transition: all .3s ease">
+        <div class="file-icon" style="background-image: url(/Content/FileIcons/@file.IconFileName)"></div>
+        <a href="#"> @(file.displayname).@(file.FileExtension?.displayname)</a>
+    </div>
+}
+@if (Model.Files.Any() || Model.Folders.Any())
+{
+    <script>
+        $(document).ready(function () {
+            $('ul li a').off('click').on('click', function (e) {
+                loadChildrenByElement(this);
+            });
+            $('[data-toggle="tooltip"],a[data-toggle]').tooltip();
+        });
+    </script>
+}

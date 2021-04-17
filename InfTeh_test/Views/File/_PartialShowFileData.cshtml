@@ -42,7 +42,8 @@
     {
         @class = "form-control text-white bg-dark",
         @resize = "vertical",
-        @style = "max-height: 700px; height: 700px;"
+        @style = "max-height: 700px; height: 700px;",
+        @readonly = "readonly"
     })
 
 
@@ -68,7 +69,6 @@
                 fileid: @Model.fileid,
                 fileName: $('#displayname').val(),
                 description: $('#description').val(),
-                content: $('#FileContentAsString').val()
             },
             success: function (html) {
                 $('#toastContainer').html(html);
