@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using InfTeh_test.Classes;
 using InfTeh_test.DataContexts;
-using InfTeh_test.Models.DataContext;
 using InfTeh_test.Models.File;
 using InfTeh_test.Models.Toast;
+using File = InfTeh_test.Models.DataContext.File;
 
 namespace InfTeh_test.Controllers
 {
@@ -103,6 +104,9 @@ namespace InfTeh_test.Controllers
         [HttpPost]
         public ActionResult SaveFileData(int fileid, string fileName, string description, string content)
         {
+            if (fileName.IndexOfAny(Path.GetInvalidFileNameChars()) > 0 || string.IsNullOrWhiteSpace(fileName))
+                return RedirectToAction("Partial_Toast", "Toast", InvalidFileName());
+            
             try
             {
                 var dbFile = db.Files.Include(m=>m.FileExtension)
@@ -153,7 +157,21 @@ namespace InfTeh_test.Controllers
         {
             "txt", "css", "js"
         };
-
+        private ToastModel InvalidFileName()
+        {
+            return new ToastModel()
+            {
+                IsAutohide = false,
+                BgColor = Colors.danger,
+                BodyTextColor = Colors.white,
+                CloseLinkColor = Colors.dark,
+                CloseText = "Я сожалею!",
+                Head = "Ошибка!",
+                HeadTextColor = Colors.white,
+                HeadColor = Colors.danger,
+                Message = "Имя файла некорректно."
+            };
+        }
         #endregion
     }
 }

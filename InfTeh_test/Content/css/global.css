@@ -115,6 +115,7 @@ a {
 }
 
 .hidden-control {
+    opacity: 0.5 !important;
     position: absolute;
     float: right;
     top: 3px;
@@ -122,10 +123,16 @@ a {
     display: inline-block;
     opacity: 0;
     visibility: hidden;
-    transition: all .2s ease
+    transition: all .3s ease;
+    border: none;
 }
-
-li div:hover .hidden-control {
+.hidden-control:hover {
+    opacity: 1 !important;
+}
+li > div:hover {
+    background: #444444
+}
+li > div:hover .hidden-control {
     opacity: 1;
     visibility: visible;
 }
@@ -137,7 +144,17 @@ li div:hover .hidden-control {
     transform: scale(0.4)
 }
 
+.select2-selection__rendered {
+    line-height: 34px !important;
+}
 
+.select2-container .select2-selection--single {
+    height: 39px !important;
+}
+
+.select2-selection__arrow {
+    height: 38px !important;
+}
 
 @media (min-width: 992px) {
     .sidenav {

@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls.WebParts;
 using InfTeh_test.DataContexts;
+using InfTeh_test.Models;
 using InfTeh_test.Models.DataContext;
 
 namespace InfTeh_test.Controllers
@@ -24,6 +28,16 @@ namespace InfTeh_test.Controllers
             return PartialView(Folders);
         }
 
+        public ActionResult _PartialSearchForm()
+        {
+            return PartialView();
+        }
+
+        public ActionResult SearchFiles(string searchInput)
+        {
+            return PartialView("_PartialSearchResults", GetFilesByDisplaynameOrExt(searchInput.Trim()));
+        }
+
         #region HelpMethods
 
         private List<Folder> GetFoldersStructure(List<Folder> folders, Folder currentFolder)
@@ -35,6 +49,34 @@ namespace InfTeh_test.Controllers
             if (offset != null)
                 folders.Insert(0,offset);
             return GetFoldersStructure(folders, offset);
+        }
+
+        private List<Models.DataContext.File> GetFilesByDisplaynameOrExt(string searchInput)
+        {
+            List<File> result = new List<File>();
+            result = db.Files
+                .Where(m => m.displayname.Contains(searchInput) 
+                            || m.FileExtension.displayname.Contains(searchInput))
+                .Include(m => m.FileExtension)
+                .Select(m => new
+                {
+                    fileid = m.fileid,
+                    displayname = m.displayname,
+                    description = m.description,
+                    file_extensionid = m.file_extensionid,
+                    folderid = m.folderid,
+                    FileExtension = m.FileExtension
+                }).ToList().Select(x => new File()
+                {
+                    fileid = x.fileid,
+                    displayname = x.displayname,
+                    description = x.description,
+                    file_extensionid = x.file_extensionid,
+                    folderid = x.folderid,
+                    FileExtension = x.FileExtension
+                }).ToList();
+
+            return result;
         }
 
         #endregion

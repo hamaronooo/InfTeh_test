@@ -10,11 +10,11 @@
 
         </div>
         <div class="row rounded-bottom p-0">
-            <div class="col-12 col-lg-8 p-0" id="explorer_content_container">
-
+            <div class="col-12 col-md-8 p-0 order-sm-last order-md-first" id="explorer_content_container">
+          
             </div>
-            <div class="col-12 col-lg-4" id="explorer_filedrop_container">
-                @Html.Action("_PartialFiledrop", "Upload")
+            <div class="col-12 col-md-4 order-sm-first order-md-last" id="explorer_filedrop_container">
+                @Html.Action("_PartialFiledrop", "Upload", new{ mode = 1 })
             </div>
         </div>
     </div>

@@ -34,8 +34,6 @@ namespace InfTeh_test.Controllers
         {
             if (ModelState.IsValid)
             {
-                //if(db.FileExtensions.Any(m=>m.displayname == fileExtension.displayname))
-                //    return RedirectToAction("Partial_Toast", "Toast", ExtensionIsNotUnique());
                 if (db.FileExtensions.Any(m => m.displayname == fileExtension.displayname))
                 {
                     var existExt = db.FileExtensions.FirstOrDefault(m => m.displayname == fileExtension.displayname);

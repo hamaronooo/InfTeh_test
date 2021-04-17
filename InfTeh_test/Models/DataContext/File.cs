@@ -42,7 +42,7 @@ namespace InfTeh_test.Models.DataContext
         //
 
         [NotMapped]
-        public string IconFileName { get; set; } = "unknown.svg";
+        public string IconFileName { get; set; }
         
         [NotMapped]
         public string FileContentAsString { get; set; }

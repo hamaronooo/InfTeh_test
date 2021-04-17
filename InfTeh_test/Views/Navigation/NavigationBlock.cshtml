@@ -45,26 +45,32 @@
 }
 @foreach (var file in Model.Files)
 {
-    <li class="nav-item" data-file-id="@file.fileid" title="@file.description">
+    <li class="nav-item" data-file-id="@file.fileid">
         <div id="file-container-@file.fileid"
-             class="nav-file text-white"
+             title="@file.description"
+             data-toggle="tooltip" 
              data-file-id="@file.fileid"
              data-parent-folder-id="@file.folderid"
+             class="nav-file text-white"
              style="position: relative;transition: all .3s ease">
             <div class="file-icon" style="background-image: url(/Content/FileIcons/@file.IconFileName)"></div>
             <a href="#"> @(file.displayname).@(file.FileExtension?.displayname)</a>
-            <a class="btn-sm btn-primary hidden-control" style="right:100px"
-               href="@Url.Action("DownloadFile","File")?fileid=@file.fileid">
+            <a class="btn-sm btn-primary hidden-control" style="right:67px"
+               href="@Url.Action("DownloadFile","File")?fileid=@file.fileid"
+               title="Скачать">
                 <i class="fa fa-download" aria-hidden="true"></i>
             </a>
-            <button class="btn-sm btn-success hidden-control mr-5"
-                    onclick="showFileData(@file.fileid)">
+            <button class="btn-sm btn-success hidden-control"
+                    style="margin-right: 30px"
+                    onclick="showFileData(@file.fileid)"
+                    title="Просмотр">
                 <i class="fa fa-eye" aria-hidden="true"></i>
             </button>
             <button class="btn-sm btn-danger hidden-control"
                     onclick="deleteFile('@file.fileid')"
                     data-toggle="modal"
-                    data-target="#ModalWindow">
+                    data-target="#ModalWindow"
+                    title="Удалить">
                 <i class="fa fa-trash-o" aria-hidden="true"></i>
             </button>
         </div>
@@ -77,6 +83,7 @@
             $('ul li a').off('click').on('click', function (e) {
                 loadChildrenByElement(this);
             });
+            $('[data-toggle="tooltip"],a[data-toggle]').tooltip();
         });
     </script>
     <script>

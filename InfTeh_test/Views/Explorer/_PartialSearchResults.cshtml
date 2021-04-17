@@ -1,0 +1,45 @@
+﻿@model List<InfTeh_test.Models.DataContext.File>
+<style>
+    .fileIcon {
+        height: 30px;
+        width: 30px;
+        background-size: contain;
+        background-repeat: no-repeat 
+    }
+    .searchResult {
+        transition: all .3s ease;
+        cursor: pointer
+    }
+        .searchResult:hover {
+            background: #cfe6ff
+        }
+</style>
+@if (Model.Any())
+{
+    foreach (var file in Model)
+    {
+        <div data-file-id="@file.fileid" class="row p-2 searchResult">
+            <div class="fileIcon" style="background:url(/Content/FileIcons/@(file.FileExtension.icon_filename))"></div>
+            <div title="@file.description"
+                 data-toggle="tooltip" 
+                 data-placement="right"
+                 class="align-self-center justify-content-center">
+                @(file.displayname).@(file.FileExtension.displayname)
+            </div>
+        </div>
+    }
+}
+else
+{
+    <span class="text-muted">По данному запросу - пусто 😔</span>
+}
+
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"],a[data-toggle]').tooltip();
+        $('#explorer_content_container .searchResult').on('click',
+            function() {
+                showFileData(this.getAttribute('data-file-id'));
+            });
+    });
+</script>

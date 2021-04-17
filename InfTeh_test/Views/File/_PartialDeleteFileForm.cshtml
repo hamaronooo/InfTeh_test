@@ -29,7 +29,7 @@
                     $('#toastContainer').html(html);
                     loadChildrenByFolderID(@Model.folderid);
                     $('#ModalWindow').modal('hide');
-                    if (@Model.fileid === OpenedFileID) {
+                    if (@Model.fileid == OpenedFileID) {
                         $('#explorer_content_container').html('');
                     }
                     hidePreloader();

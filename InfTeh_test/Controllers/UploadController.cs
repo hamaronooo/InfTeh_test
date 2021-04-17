@@ -5,12 +5,14 @@ using System.Data.Entity.ModelConfiguration;
 using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
+using System.Security.Policy;
 using System.Web;
 using System.Web.Mvc;
 using InfTeh_test.Classes;
 using InfTeh_test.DataContexts;
 using InfTeh_test.Models.DataContext;
 using InfTeh_test.Models.Toast;
+using InfTeh_test.Models.Upload;
 using File = InfTeh_test.Models.DataContext.File;
 
 namespace InfTeh_test.Controllers
@@ -18,9 +20,16 @@ namespace InfTeh_test.Controllers
     public class UploadController : Controller
     {
         DataContext db = new DataContext();
-        public ActionResult _PartialFiledrop()
+        public ActionResult _PartialFiledrop(int mode, int? folderid)
         {
-            return PartialView();
+            // mode = 1 - file to folder upload 
+            // mode = 2 - file to FileIcons server folder upload
+            UploadModel uploadModel = new UploadModel()
+            {
+                folderid = folderid,
+                Mode = mode
+            };
+            return PartialView(uploadModel);
         }
 
         [HttpPost]
@@ -66,21 +75,29 @@ namespace InfTeh_test.Controllers
         }
 
         [HttpPost]
-        public ActionResult UploadFileIcon(HttpPostedFileBase file)
+        public ActionResult UploadFileIcon(HttpPostedFileBase[] files)
         {
-            if (file != null)
+            foreach (HttpPostedFileBase file in files)
             {
-                string fileName = Path.GetFileName(file.FileName);
-                string relativePath = "~/Content/FileIcons/" + fileName;
-                if (System.IO.File.Exists(HttpContext.Server.MapPath(relativePath)))
+                if (file != null)
                 {
-                    return RedirectToAction("Partial_FileAlreadyExistsToast", "Toast");
+                    string fileName = Path.GetFileName(file.FileName);
+                    string fileExt = Path.GetExtension(file.FileName)?.Remove(0, 1);
+                    if (!FileController.ImageFileExtensions.Contains(fileExt))
+                        continue;
+
+                    string relativePath = "~/Content/FileIcons/" + fileName;
+                    if (System.IO.File.Exists(HttpContext.Server.MapPath(relativePath)))
+                    {
+                        return RedirectToAction("Partial_FileAlreadyExistsToast", "Toast");
+                    }
+                    else
+                    {
+                        file.SaveAs(Server.MapPath("~/Content/FileIcons/" + fileName));
+                        return RedirectToAction("Partial_SuccesUploadedToast", "Toast");
+                    }
                 }
-                else
-                {
-                    file.SaveAs(Server.MapPath("~/Content/FileIcons/" + fileName));
-                    return RedirectToAction("Partial_SuccesUploadedToast", "Toast");
-                }
+                return RedirectToAction("Partial_UnknownErrorToast", "Toast");
             }
             return RedirectToAction("Partial_UnknownErrorToast", "Toast");
         }

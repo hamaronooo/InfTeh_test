@@ -1,0 +1,27 @@
+﻿<div class="container">
+    <div class="row w-100">
+        <input type="text" id="searchInput" class="form-control col mr-3" placeholder="Введите поисковый запрос"/>
+        <input type="button" value="Найти" class="btn btn-primary col-auto" onclick="searchFiles()" />
+    </div>
+</div>
+
+<script>
+    function searchFiles() {
+        if (!$('#searchInput').val().trim()) {
+            $('#searchInput').attr('placeholder', 'Введите текст для поиска!');
+            return;
+        }
+
+        setPreloader($('#searchResult'));
+        $.ajax({
+            url: "@Url.Action("SearchFiles", "Explorer")",
+            method: "POST",
+            data: {
+                searchInput: $('#searchInput').val()
+            },
+            success: function(html) {
+                $('#explorer_content_container').html(html);
+            }
+        });
+    }
+</script>

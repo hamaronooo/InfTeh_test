@@ -145,6 +145,7 @@
     <Compile Include="Models\File\FileEditModel.cs" />
     <Compile Include="Models\NavigationModel.cs" />
     <Compile Include="Models\Toast\ToastModel.cs" />
+    <Compile Include="Models\Upload\UploadModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -154,6 +155,7 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrap4-toggle.min.css" />
     <Content Include="Content\css\global.css" />
     <Content Include="Content\css\select2.css" />
     <Content Include="Content\css\select2.min.css" />
@@ -194,6 +196,7 @@
     <Content Include="Content\FileIcons\svg.svg" />
     <Content Include="Content\FileIcons\txt.svg" />
     <Content Include="Content\FileIcons\unknown.svg" />
+    <Content Include="Content\FileIcons\uploaded.svg" />
     <Content Include="Content\FileIcons\xls.svg" />
     <Content Include="Content\FileIcons\xml.svg" />
     <Content Include="Content\FileIcons\zip-1.svg" />
@@ -248,9 +251,11 @@
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\custom\bootstrap4-toggle.min.js" />
     <Content Include="Scripts\custom\ObjectSelection.js" />
     <Content Include="Scripts\custom\Preloader.js" />
     <Content Include="Scripts\custom\SideMenuCookieOpen.js" />
+    <Content Include="Scripts\custom\tippy.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
@@ -466,6 +471,8 @@
     <Content Include="Views\File\_PartialShowFileExtension.cshtml" />
     <Content Include="Views\Explorer\_PartialFilePathBlock.cshtml" />
     <Content Include="Views\Navigation\_PartialFolderInfo.cshtml" />
+    <Content Include="Views\Explorer\_PartialSearchForm.cshtml" />
+    <Content Include="Views\Explorer\_PartialSearchResults.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
