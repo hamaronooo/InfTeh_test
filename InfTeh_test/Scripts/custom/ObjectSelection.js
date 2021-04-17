@@ -9,27 +9,17 @@ function setNavEventListener() {
 }
 
 function select_li(li) {
-    console.log('CALLER:  ' + select_li.caller);
     var data_folder_id = li.getAttribute('data-folder-id');
     var data_file_id = li.getAttribute('data-file-id');
 
     var jq_li = null;
 
-    if (data_folder_id != null) {
-        console.log("folder-container-" + data_folder_id);
+    if (data_folder_id != null)
         jq_li = $("#folder-container-" + data_folder_id);
-    }
-    else if (data_file_id != null) {
-        console.log("file-container-" + data_file_id);
+    else if (data_file_id != null) 
         jq_li = $('#file-container-' + data_file_id);
-    } else {
-        console.log('selected element: ' + selectedElement);
-
-    }
-
-
+    
     if (jq_li != null && jq_li.hasClass("selectedElement")) {
-        console.log('has class');
         selectedElement.removeClass("selectedElement");
         selectedElement = null;
         $('#explorer_header_container').html('');

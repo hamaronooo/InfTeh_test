@@ -47,15 +47,17 @@ namespace InfTeh_test.Controllers
 
                     if (extensionid == null)
                     {
-                        CreateExtension(fileExt, out int? extid);
-                        extensionid = extid;
+                    
+                            CreateExtension(fileExt, out int? extid);
+                            extensionid = extid;
+                       
+                
                     }
 
                     if (CheckFileExist(fileName, fileExt, folderid))
                     {
                         fileName = fileName + $" ({DateTime.Now.ToString("dd-MM-yy HH:mm:ss")})";
                     }
-
 
                     File dbFile = new File();
                     dbFile.folderid = folderid;
@@ -113,7 +115,6 @@ namespace InfTeh_test.Controllers
 
         private void CreateExtension(string name, out int? extid)
         {
-            // todo: try catch
             FileExtension fileExtension = new FileExtension()
             {
                 displayname = name

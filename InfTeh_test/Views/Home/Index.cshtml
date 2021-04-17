@@ -11,7 +11,7 @@
         </div>
         <div class="row rounded-bottom p-0">
             <div class="col-12 col-md-8 p-0 order-sm-last order-md-first" id="explorer_content_container">
-          
+                <input type="button" value="Информация проекта" onclick="showProjectInfo()" class="btn btn-outline-primary"/>
             </div>
             <div class="col-12 col-md-4 order-sm-first order-md-last" id="explorer_filedrop_container">
                 @Html.Action("_PartialFiledrop", "Upload", new{ mode = 1 })
@@ -19,3 +19,9 @@
         </div>
     </div>
 </div>
+
+<script>
+    function showProjectInfo() {
+        $('#explorer_content_container').load('/Home/_PartialProjectInfo');
+    }
+</script>

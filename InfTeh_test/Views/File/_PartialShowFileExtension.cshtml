@@ -13,7 +13,7 @@
 
 <style>
     #extPreview {
-        height: 500px;
+        height: 200px;
         background-repeat: no-repeat;
         background-size: contain;
         background-position: center
@@ -30,6 +30,9 @@
         {
             @class = "form-control"
         })
+    <div class="input-group-append">
+        <span class="input-group-text">.@Model.FileExtension.displayname</span>
+    </div>
 </div>
 <div class="col-12 input-group mb-3">
     <div class="input-group-prepend">

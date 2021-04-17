@@ -6,6 +6,17 @@
 </div>
 
 <script>
+    $(document).ready(function() {
+        $('#searchInput').bind("enterKey",function(e) {
+            searchFiles();
+        });
+        $('#searchInput').keyup(function(e){
+            if(e.keyCode == 13)
+            {
+                $(this).trigger("enterKey");
+            }
+        });
+    });
     function searchFiles() {
         if (!$('#searchInput').val().trim()) {
             $('#searchInput').attr('placeholder', 'Введите текст для поиска!');

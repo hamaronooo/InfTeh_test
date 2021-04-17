@@ -6,6 +6,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls.WebParts;
+using InfTeh_test.Classes;
 using InfTeh_test.DataContexts;
 using InfTeh_test.Models;
 using InfTeh_test.Models.DataContext;
@@ -30,17 +31,18 @@ namespace InfTeh_test.Controllers
                 model.Folders = db.Folders.Where(m => m.parent_folderid == null);
             }
 
-            model.Files = GetFilesByFolderID(parentFolderid);
+            model.Files = new FilesWorker().GetFilesByFolderID(parentFolderid);
 
             foreach (File file in model.Files)
             {
-                string relativePath = "/Content/FileIcons/" + file.FileExtension?.icon_filename;
+                string extName = file.FileExtension?.icon_filename ?? file.FileExtension.displayname + ".svg";
+                string relativePath = "/Content/FileIcons/" + extName;
                 string fullpath = HttpContext.Server.MapPath(relativePath);
 
                 bool a = System.IO.File.Exists(fullpath);
 
                 if (System.IO.File.Exists(fullpath))
-                    file.IconFileName = file.FileExtension?.icon_filename;
+                    file.IconFileName = extName;
                 else file.IconFileName = "unknown.svg";
             }
 
@@ -62,7 +64,7 @@ namespace InfTeh_test.Controllers
                 model.Folders = db.Folders.Where(m => m.parent_folderid == null);
             }
 
-            model.Files = GetFilesByFolderID(parentFolderid);
+            model.Files = new FilesWorker().GetFilesByFolderID(parentFolderid);
 
             foreach (var file in model.Files)
             {

@@ -25,7 +25,7 @@
             }
     </style>
     <div>
-        <input type="text" placeholder="Введите название" class="form-control" />
+        <input id="folderName" type="text" placeholder="Введите название" class="form-control" />
         <button class="btn-sm btn-primary" onclick="createFolder()">
             <i class="fa fa-floppy-o" aria-hidden="true"></i>
         </button>
@@ -33,13 +33,23 @@
 </div>
 
 <script>
+    $(document).ready(function() {
+        $('#folderName').bind("enterKey",function(e) {
+            createFolder();
+        });
+        $('#folderName').keyup(function(e){
+            if(e.keyCode == 13)
+            {
+                $(this).trigger("enterKey");
+            }
+        });
+    });
     function createFolder() {
-        console.log($('#createFolderForm').prev('ul [data-folder-id]').prop('[data-folder-id]'));
         $.ajax({
             type: "POST",
             url: "@Url.Action("CreateFolder", "Folder")",
             data: {
-                name: $('#createFolderForm input:first').val(),
+                name: $('#folderName').val(),
                 parent_folderid: '@Model'
             },
             success: function (html) {

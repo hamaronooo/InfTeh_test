@@ -25,7 +25,7 @@ namespace InfTeh_test
             bundles.Add(new ScriptBundle("~/bundles/custom-js").Include(
                 "~/Scripts/custom/Preloader.js",
                 "~/Scripts/custom/ObjectSelection.js",
-                "~/Scripts/custom/SideMenuCookieOpen.js",
+                "~/Scripts/custom/ContentByCookie.js",
                 "~/Scripts/select2.js",
                 "~/Scripts/custom/bootstrap4-toggle.min.js",
                 "~/Scripts/popper.min.js"));

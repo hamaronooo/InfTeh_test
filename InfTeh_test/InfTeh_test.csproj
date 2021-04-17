@@ -126,6 +126,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Classes\Colors.cs" />
+    <Compile Include="Classes\FilesWorker.cs" />
     <Compile Include="Controllers\ExplorerController.cs" />
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\FileExtensionController.cs" />
@@ -254,8 +255,7 @@
     <Content Include="Scripts\custom\bootstrap4-toggle.min.js" />
     <Content Include="Scripts\custom\ObjectSelection.js" />
     <Content Include="Scripts\custom\Preloader.js" />
-    <Content Include="Scripts\custom\SideMenuCookieOpen.js" />
-    <Content Include="Scripts\custom\tippy.js" />
+    <Content Include="Scripts\custom\ContentByCookie.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
@@ -473,10 +473,11 @@
     <Content Include="Views\Navigation\_PartialFolderInfo.cshtml" />
     <Content Include="Views\Explorer\_PartialSearchForm.cshtml" />
     <Content Include="Views\Explorer\_PartialSearchResults.cshtml" />
+    <Content Include="Views\Shared\_PartialProjectInfo.cshtml" />
+    <Content Include="Views\Explorer\_PartialFolderContent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Modal\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

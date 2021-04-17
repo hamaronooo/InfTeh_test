@@ -43,7 +43,16 @@
             });
         }
 
-        $(document).ready(function() {
+        $(document).ready(function () {
+            $('#displayname').bind("enterKey",function(e) {
+                renameFolder();
+            });
+            $('#displayname').keyup(function(e){
+                if(e.keyCode == 13)
+                {
+                    $(this).trigger("enterKey");
+                }
+            });
             $('#displayname').on('input',
                 function () {
                     if ($('#displayname').val().length < 1)

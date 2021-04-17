@@ -6,6 +6,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls.WebParts;
+using InfTeh_test.Classes;
 using InfTeh_test.DataContexts;
 using InfTeh_test.Models;
 using InfTeh_test.Models.DataContext;
@@ -35,7 +36,7 @@ namespace InfTeh_test.Controllers
 
         public ActionResult SearchFiles(string searchInput)
         {
-            return PartialView("_PartialSearchResults", GetFilesByDisplaynameOrExt(searchInput.Trim()));
+            return PartialView("_PartialSearchResults", new FilesWorker().GetFilesByDisplaynameOrExt(searchInput.Trim()));
         }
 
         #region HelpMethods
@@ -51,33 +52,40 @@ namespace InfTeh_test.Controllers
             return GetFoldersStructure(folders, offset);
         }
 
-        private List<Models.DataContext.File> GetFilesByDisplaynameOrExt(string searchInput)
+        public ActionResult _PartialFolderContent(int folderid)
         {
-            List<File> result = new List<File>();
-            result = db.Files
-                .Where(m => m.displayname.Contains(searchInput) 
-                            || m.FileExtension.displayname.Contains(searchInput))
-                .Include(m => m.FileExtension)
-                .Select(m => new
-                {
-                    fileid = m.fileid,
-                    displayname = m.displayname,
-                    description = m.description,
-                    file_extensionid = m.file_extensionid,
-                    folderid = m.folderid,
-                    FileExtension = m.FileExtension
-                }).ToList().Select(x => new File()
-                {
-                    fileid = x.fileid,
-                    displayname = x.displayname,
-                    description = x.description,
-                    file_extensionid = x.file_extensionid,
-                    folderid = x.folderid,
-                    FileExtension = x.FileExtension
-                }).ToList();
+            NavigationModel model = new NavigationModel();
 
-            return result;
+            if (folderid != null)
+            {
+                model.ParentFolder = db.Folders.FirstOrDefault(m => m.folderid == folderid);
+                model.Folders = db.Folders.Where(m => m.parent_folderid == folderid);
+            }
+            else
+            {
+                model.ParentFolder = new Folder() { folderid = 0 };
+                model.Folders = db.Folders.Where(m => m.parent_folderid == null);
+            }
+
+            model.Files = new FilesWorker().GetFilesByFolderID(folderid);
+
+            foreach (File file in model.Files)
+            {
+                string extName = file.FileExtension?.icon_filename ?? file.FileExtension.displayname + ".svg";
+                string relativePath = "/Content/FileIcons/" + extName;
+                string fullpath = HttpContext.Server.MapPath(relativePath);
+
+                bool a = System.IO.File.Exists(fullpath);
+
+                if (System.IO.File.Exists(fullpath))
+                    file.IconFileName = extName;
+                else file.IconFileName = "unknown.svg";
+            }
+
+            return PartialView("_PartialFolderContent", model);
         }
+
+
 
         #endregion
     }

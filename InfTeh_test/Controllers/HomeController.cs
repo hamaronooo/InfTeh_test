@@ -13,7 +13,11 @@ namespace InfTeh_test.Controllers
 
         public ActionResult Index()
         {
-            //return RedirectToAction("GetNavigationBlock", "Navigation");
+            return PartialView();
+        }
+
+        public ActionResult _PartialProjectInfo()
+        {
             return PartialView();
         }
     }
