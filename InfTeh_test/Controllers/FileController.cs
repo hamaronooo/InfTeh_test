@@ -65,7 +65,6 @@ namespace InfTeh_test.Controllers
         {
             try
             {
-
                 if (!db.Files.Any(m=>m.fileid == fileid))
                     return RedirectToAction("Partial_Toast", "Toast", NoSuchFile());
 
@@ -90,7 +89,8 @@ namespace InfTeh_test.Controllers
                     fileid = m.fileid,
                     FileExtension = m.FileExtension,
                     description = m.description,
-                    displayname = m.displayname
+                    displayname = m.displayname,
+                    folderid = m.folderid
                 }).FirstOrDefault();
 
                 string extName = fileWithoutData.FileExtension?.icon_filename ?? fileWithoutData.FileExtension.displayname + ".svg";
