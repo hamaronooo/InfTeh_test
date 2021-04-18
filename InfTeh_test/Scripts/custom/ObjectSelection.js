@@ -20,7 +20,6 @@ function select_li(li) {
         jq_li = $('#file-container-' + data_file_id);
     
     if (jq_li != null && jq_li.hasClass("selectedElement")) {
-        console.log(jq_li);
         selectedElement.removeClass("selectedElement");
         selectedElement = null;
         $('#explorer_header_path').html('');
@@ -35,6 +34,7 @@ function select_li(li) {
     }
 
     displayFilePath();
+    loadUploadForm();
 }
 
 function getParentFolderID() {
@@ -61,4 +61,9 @@ function getParentFolderID() {
 function displayFilePath() {
     var currentFolderId = getParentFolderID();
     $('#explorer_header_path').load('/Explorer/_PartialFilePathBlock?currentFolderid=' + currentFolderId);
+}
+function loadUploadForm() {
+    var currentFolderId = getParentFolderID();
+    $('#explorer_filedrop_container').html('');
+    $('#explorer_filedrop_container').load('/Upload/_PartialFiledrop?mode=1&folderid=' + currentFolderId);
 }

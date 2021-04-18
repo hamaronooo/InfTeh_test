@@ -3,7 +3,7 @@
 <div id="drop-area">
     <form class="my-form h-20">
         <div class="row">
-            <div class="col-8">
+            <div class="col-6">
                 <div class="row">
                     <div class="col-12 align-self-center justify-content-center text-primary">
                         Перетащите файл
@@ -11,31 +11,33 @@
                     <div class="col-12"><label class="btn btn-sm btn-outline-primary" for="fileElem">Или нажмите</label></div>
                 </div>
             </div>
-            <div class="col-4">
+            <div class="col-6">
+          
                 <div class="row">
-                    <div class="col-12 text-primary">Вид загрузки</div>
+                    <div class="col-12 text-primary">
+                        @if (Model.Mode == 1)
+                        {
+                            <text>Загрузка файлов в папку:</text>
+                        }
+                        else if (Model.Mode == 2)
+                        {
+                            <text>Загрузка иконки расширения</text>
+                        }
+                    </div>
                     <div class="col-12">
-                        <input type="checkbox"
-                               data-toggle="toggle"
-                               data-on="Файл"
-                               data-off="Иконка"
-                               data-onstyle="primary"
-                               data-offstyle="light"
-                               data-size="sm"
-                               id="uploadMode" checked="checked">
+                        @Model.folderName
                     </div>
                 </div>
             </div>
         </div>
         <progress class="col-12" id="progress-bar" max=100 value=0></progress>
         <div class="col-12 small text-muted">Максимум 100 Мб</div>
-        <input type="file" id="fileElem" multiple accept="image/*" onchange="handleFiles(this.files)">
+        <input type="file" id="fileElem" multiple @*accept="image/*"*@ onchange="handleFiles(this.files)">
     </form>
     <div class="h-80" id="gallery" />
 </div>
 <style>
     .note {
-      /*  width: 500px;*/
         margin: 50px auto;
         font-size: 1.1em;
         color: #333;
@@ -70,7 +72,9 @@
 
 <script>
     // ************************ Drag and drop ***************** //
-    let dropArea = document.getElementById("drop-area");
+    var dropArea = document.getElementById("drop-area");
+    var uploadProgress = [];
+    var progressBar = document.getElementById('progress-bar');
 
         // Prevent default drag behaviors
     ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
@@ -108,9 +112,6 @@
         var files = dt.files;
         handleFiles(files);
     }
-
-    let uploadProgress = [];
-    let progressBar = document.getElementById('progress-bar');
 
     function initializeProgress(numFiles) {
         progressBar.value = 0;
@@ -166,17 +167,10 @@
                    break;
            }
        }
-        var url;
-        if ($('#uploadMode').prop('checked') == true) {
-            url = '@Url.Action("UploadFiles", "Upload")';
-        }
-        else {
-            url = '@Url.Action("UploadFileIcon", "Upload")';
-        }
 
         var xhr = new XMLHttpRequest();
         var formData = new FormData();
-        xhr.open('POST', url, true);
+        xhr.open('POST','@url', true);
         xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
         xhr.upload.addEventListener("progress",
@@ -184,6 +178,12 @@
                 updateProgress(i, (e.loaded * 100.0 / e.total) || 100);
             });
 
+       var folderid;
+        if ('@(Model.folderid)' == '') {
+            folderid = getParentFolderID();
+        } else {
+            folderid = '@(Model.folderid)';
+        }
        @{
            string folderid = Model.folderid == null ? "getParentFolderID()" : "";
        }
@@ -192,13 +192,20 @@
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     updateProgress(i, 100);
                     $('#toastContainer').load('@Url.Action("Partial_SuccesUploadedToast","Toast")');
-                    setTimeout(loadChildrenByFolderID(@folderid), 200);
+                    if ('@Model.Mode' === '2') {
+                        loadIconCreateForm();
+                        return;
+                    }
+                    setTimeout(function () {
+                        loadChildrenByFolderID(folderid);
+                        showFolderContent(folderid);
+                    }, 400);
                 } else if (xhr.readyState == 4 && xhr.status != 200) {
                     $('#toastContainer').load('@Url.Action("Partial_UnknownErrorToast","Toast")');
                 }
             });
 
-        formData.append('folderid', @folderid);
+        formData.append('folderid', folderid);
         formData.append('files', file);
         xhr.send(formData);
        clearUploadedFilesPreview();

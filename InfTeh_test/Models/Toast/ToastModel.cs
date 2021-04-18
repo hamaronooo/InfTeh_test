@@ -10,7 +10,7 @@ namespace InfTeh_test.Models.Toast
         public ToastModel()
         {
             IsAutohide = true;
-            Delay_ms = 40000;
+            Delay_ms = 6000;
         }
 
         public string Head { get; set; }

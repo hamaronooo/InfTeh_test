@@ -28,7 +28,8 @@ namespace InfTeh_test.Controllers
             UploadModel uploadModel = new UploadModel()
             {
                 folderid = folderid,
-                Mode = mode
+                Mode = mode,
+                folderName = db.Folders.FirstOrDefault(m=>m.folderid==folderid)?.displayname
             };
             return PartialView(uploadModel);
         }

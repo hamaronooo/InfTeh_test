@@ -60,7 +60,9 @@
                 }
                 else
                 {
-                    <text>loadChildrenByFolderID(selectedElement.attr('data-folder-id'));</text>
+                    <text>loadChildrenByFolderID(selectedElement.attr('data-folder-id'));
+                        showFolderContent(@Model);
+                    </text>
                 }
             }
         });

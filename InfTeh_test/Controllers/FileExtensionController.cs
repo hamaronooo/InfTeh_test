@@ -54,6 +54,11 @@ namespace InfTeh_test.Controllers
             }
         }
 
+        public ActionResult _PartialFileExtensionList()
+        {
+            List<FileExtension> FileExtList = db.FileExtensions.ToList();
+            return  PartialView(FileExtList);
+        }
 
         #region HelpMethods
         private ToastModel ExtensionIsNotUnique()

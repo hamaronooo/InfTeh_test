@@ -59,10 +59,6 @@ function showFileData(fileid) {
 function showFolderContent(folderid) {
     setPreloader($('#explorer_content_container'));
 
-    //if (selectedElement != null) {
-    //    return;
-    //}
-
     $.ajax({
         method: "POST",
         url: '/Explorer/_PartialFolderContent',
@@ -95,15 +91,21 @@ function createFolderForm() {
     });
 }
 
+
+// icons
 function loadIconCreateForm() {
     showPreloader();
     $.ajax({
         type: "GET",
         url: '/FileExtension/_PartialIconCreateForm',
         success: function (html) {
-            $('#ModalBody').html(html);
+            $('#explorer_content_container').html(html);
+            loadIconUploadForm();
         }
     }).always(function () {
         hidePreloader();
     });
+}
+function loadIconUploadForm() {
+    $('#explorer_filedrop_container').load('/Upload/_PartialFiledrop?mode=2');
 }

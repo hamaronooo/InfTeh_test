@@ -42,7 +42,7 @@
                     $('#collapse_' + folderid).html('<div class="text-center text-white">Папка пустая</div>');
             });
             removeFolderPreloader(folderid);
-        }, 800);
+        }, 400);
         setNavEventListener();
     }
 
@@ -71,9 +71,7 @@
                         Создать папку
                     </button>
                     <button class="btn btn-sm btn-primary mr-2"
-                            onclick="loadIconCreateForm()"
-                            data-toggle="modal"
-                            data-target="#ModalWindow">
+                            onclick="loadIconCreateForm()">
                         Добавить иконку расширения
                     </button>
                     <input type="button" value="Информация проекта" onclick="showProjectInfo()" class="btn btn-sm btn-outline-info" />

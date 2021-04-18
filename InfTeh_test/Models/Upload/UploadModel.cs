@@ -9,6 +9,7 @@ namespace InfTeh_test.Models.Upload
     public class UploadModel
     {
         public int? folderid { get; set; }
+        public string folderName { get; set; }
         public int Mode { get; set; }
     }
 }

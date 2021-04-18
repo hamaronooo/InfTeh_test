@@ -4,7 +4,6 @@
     $(document).ready(function () {
         $('#icon_filename').select2(
             {
-                dropdownParent: $("#ModalWindow"),
                 width: '100%'
             });
         showSelectedFile();
@@ -35,7 +34,8 @@
 
 @using (Ajax.BeginForm("CreateFileExtension", "FileExtension", new AjaxOptions()
 {
-    UpdateTargetId = "toastContainer"
+    UpdateTargetId = "toastContainer",
+    OnSuccess = "updateFileExtList"
 }))
 {
     <h5 class="text-primary">Добавление расширения файла</h5>
@@ -57,9 +57,14 @@
         <div class="row mb-2">
             <input type="submit" value="Сохранить" class="btn btn-primary" />
         </div>
-        <div>
-            @Html.ValidationSummary()
+        <div class="row mb-2 w-100" id="fileExtList">
+            @Html.Action("_PartialFileExtensionList", "FileExtension")
         </div>
     </div>
 }
 <div class="mb-3" id="IconPreview"></div>
+<script>
+    function updateFileExtList() {
+        $('#fileExtList').load('@Url.Action("_PartialFileExtensionList", "FileExtension")');
+    }
+</script>

@@ -476,6 +476,7 @@
     <Content Include="Views\Explorer\_PartialSearchResults.cshtml" />
     <Content Include="Views\Shared\_PartialProjectInfo.cshtml" />
     <Content Include="Views\Explorer\_PartialFolderContent.cshtml" />
+    <Content Include="Views\FileExtension\_PartialFileExtensionList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,31 @@
+﻿
+@model List<InfTeh_test.Models.DataContext.FileExtension>
+    
+<style>
+    .ext_container {
+        height: 90px;
+        width: 90px;
+        position: relative;
+        float: left;
+        margin: 10px 5px 20px 5px;
+        background-repeat: no-repeat;
+        background-size: contain; 
+        background-position: center 
+    }
+    .ext_text {
+        margin-top: 90px;
+        text-align: center;
+    }
+</style>
+<div class="row w-100">
+    <div class="col-12">Уже добавленные расширения:</div>
+</div>
+<div class="col-12 ml-0 border rounded" style="height: 300px;overflow-x:auto">
+    @foreach (var ext in Model)
+    {
+        string iconFileName = string.IsNullOrEmpty(ext.icon_filename) ? "unknown.svg" : ext.icon_filename;
+        <div class="ext_container" style="background-image: url(/Content/FileIcons/@iconFileName)">
+            <div class="ext_text">.@ext.displayname</div>
+        </div>
+    }
+</div>
