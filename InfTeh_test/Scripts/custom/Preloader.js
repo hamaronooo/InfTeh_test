@@ -20,7 +20,7 @@ function hidePreloader() {
 // в контейнере
 function setPreloader(jqElement) {
     var Content = '<div class="d-flex justify-content-center">' +
-        '<div class="spinner-border text-white"' +
+        '<div class="spinner-border text-dark"' +
         'role="status">' +
         '<span class="sr-only">Loading...</span>' +
         '</div>' +
